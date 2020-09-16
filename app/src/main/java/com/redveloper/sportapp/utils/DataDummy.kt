@@ -1,5 +1,6 @@
 package com.redveloper.sportapp.utils
 
+import com.redveloper.sportapp.domain.model.Classement
 import com.redveloper.sportapp.domain.model.Match
 import com.redveloper.sportapp.domain.model.Team
 
@@ -31,6 +32,19 @@ object DataDummy {
                 image = "https://i.ytimg.com/vi/0kmYSfQEIH8/maxresdefault.jpg"
             )
             items.add(match)
+        }
+        return items
+    }
+
+    fun generateClassement() : List<Classement> {
+        val items : ArrayList<Classement> = ArrayList()
+        for (data in 0..9){
+            val classement = Classement(
+                id = "$data", name = "Team $data",
+                played = data, win = data, draw = data,
+                loss = data, total = data
+            )
+            items.add(classement)
         }
         return items
     }

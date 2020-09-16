@@ -13,4 +13,11 @@
     <string name="title">Title</string>
     <string name="stadium">Stadium</string>
     <string name="location">Location</string>
+    <string name="no">No</string>
+    <string name="name">Name</string>
+    <string name="played">Played</string>
+    <string name="win">Win</string>
+    <string name="draw">Draw</string>
+    <string name="loss">Loss</string>
+    <string name="total">Total</string>
 </resources>
