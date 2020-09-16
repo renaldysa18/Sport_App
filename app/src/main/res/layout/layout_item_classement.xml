@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/tv_number_item_classement"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:text="@string/no"
+        android:textColor="@color/colorBlack" />
+
+    <TextView
+        android:id="@+id/tv_name_item_classement"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_weight="1.5"
+        android:text="@string/name"
+        android:textColor="@color/colorBlack" />
+
+    <TextView
+        android:id="@+id/tv_played_item_classement"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_weight="0.75"
+        android:text="@string/played"
+        android:textAlignment="center"
+        android:textColor="@color/colorBlack" />
+
+    <TextView
+        android:id="@+id/tv_win_item_classement"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_weight="0.75"
+        android:text="@string/win"
+        android:textAlignment="center"
+        android:textColor="@color/colorBlack" />
+
+    <TextView
+        android:id="@+id/tv_draw_item_classement"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_weight="0.75"
+        android:text="@string/draw"
+        android:textAlignment="center"
+        android:textColor="@color/colorBlack" />
+
+    <TextView
+        android:id="@+id/tv_loss_item_classement"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_weight="0.75"
+        android:text="@string/loss"
+        android:textAlignment="center"
+        android:textColor="@color/colorBlack" />
+
+    <TextView
+        android:id="@+id/tv_total_item_classement"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_weight="0.75"
+        android:text="@string/total"
+        android:textAlignment="center"
+        android:textColor="@color/colorBlack" />
+
+</LinearLayout>
