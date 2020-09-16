@@ -1,0 +1,20 @@
+package com.redveloper.sportapp.data.source.remote.response.classement
+
+import com.google.gson.annotations.SerializedName
+
+data class ClassementResponse(
+    @field:SerializedName("idTeam")
+    val idTeam : String,
+    @field:SerializedName("name")
+    val name : String,
+    @field:SerializedName("played")
+    val played: Int,
+    @field:SerializedName("win")
+    val win: Int,
+    @field:SerializedName("draw")
+    val draw : Int,
+    @field:SerializedName("loss")
+    val loss : Int,
+    @field:SerializedName("total")
+    val total : Int
+)

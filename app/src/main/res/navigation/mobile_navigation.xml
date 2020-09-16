@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/nav_classement">
+    <fragment
+        android:id="@+id/nav_classement"
+        android:name="com.redveloper.sportapp.ui.classement.ClassementFragment"
+        android:label="Classement"
+        tools:layout="@layout/fragment_classement" />
+    <fragment
+        android:id="@+id/nav_match"
+        android:name="com.redveloper.sportapp.ui.match.MatchFragment"
+        android:label="Match"
+        tools:layout="@layout/fragment_match" />
+    <fragment
+        android:id="@+id/nav_team"
+        android:name="com.redveloper.sportapp.ui.team.TeamFragment"
+        android:label="Team"
+        tools:layout="@layout/fragment_team" />
+    <fragment
+        android:id="@+id/nav_favorit"
+        android:name="com.redveloper.sportapp.ui.favorit.FavoritFragment"
+        android:label="Favorit"
+        tools:layout="@layout/fragment_favorit" />
+    <fragment
+        android:id="@+id/nav_setting"
+        android:name="com.redveloper.sportapp.ui.setting.SettingFragment"
+        android:label="Setting"
+        tools:layout="@layout/fragment_setting" />
+</navigation>

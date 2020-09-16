@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_classement"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="@string/classement" />
+
+    <item
+        android:id="@+id/nav_match"
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:title="@string/match" />
+
+    <item
+        android:id="@+id/nav_team"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="@string/team" />
+
+    <item
+        android:id="@+id/nav_favorit"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="@string/favorit"/>
+
+    <item
+        android:id="@+id/nav_setting"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="@string/setting"/>
+
+</menu>
