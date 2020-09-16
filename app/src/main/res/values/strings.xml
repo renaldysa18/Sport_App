@@ -10,4 +10,7 @@
     <string name="team">Team</string>
     <string name="favorit">Favorit</string>
     <string name="setting">Setting</string>
+    <string name="title">Title</string>
+    <string name="stadium">Stadium</string>
+    <string name="location">Location</string>
 </resources>
