@@ -1,5 +1,6 @@
 package com.redveloper.sportapp.utils
 
+import com.redveloper.sportapp.domain.model.Match
 import com.redveloper.sportapp.domain.model.Team
 
 object DataDummy {
@@ -18,6 +19,19 @@ object DataDummy {
             items.add(team)
         }
 
+        return items
+    }
+
+    fun generateMatch() : List<Match> {
+        val items : ArrayList<Match> = ArrayList()
+        for (data in 0..9){
+            val match = Match(
+                id = "$data",
+                name = "Match $data",
+                image = "https://i.ytimg.com/vi/0kmYSfQEIH8/maxresdefault.jpg"
+            )
+            items.add(match)
+        }
         return items
     }
 }
