@@ -12,7 +12,7 @@ data class LeagueEntity(
     @ColumnInfo(name = "name")
     val name : String,
     @ColumnInfo(name = "logo")
-    val logo : String,
+    val logo : String?,
     @ColumnInfo(name = "gender")
     val gender : String
 )

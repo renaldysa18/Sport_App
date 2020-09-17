@@ -67,7 +67,7 @@ class Repository private constructor(
             }
 
             override fun shouldFetch(data: List<League>?): Boolean {
-                return data == null || data.isEmpty()
+                return true
             }
 
             override fun createCall(): LiveData<ApiResponse<List<LeagueResponse>>> {
