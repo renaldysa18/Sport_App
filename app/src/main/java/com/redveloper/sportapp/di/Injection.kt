@@ -7,7 +7,7 @@ import com.redveloper.sportapp.data.source.local.room.AppDatabase
 import com.redveloper.sportapp.data.source.remote.RemoteDataSource
 import com.redveloper.sportapp.data.source.remote.network.ApiConfig
 import com.redveloper.sportapp.domain.usecase.ContentInteractor
-import com.redveloper.sportapp.domain.usecase.ContentUseCaseImpl
+import com.redveloper.sportapp.domain.usecase.ContentUseCase
 import com.redveloper.sportapp.utils.AppExecutors
 
 object Injection {
@@ -22,7 +22,7 @@ object Injection {
         return Repository.getInstance(remoteDataSource, localDataSource, appExecutors)
     }
 
-    fun provideContentUseCase(context: Context) : ContentUseCaseImpl {
+    fun provideContentUseCase(context: Context) : ContentUseCase {
         val repositoryImpl = provideRepository(context)
         return ContentInteractor(repositoryImpl)
     }

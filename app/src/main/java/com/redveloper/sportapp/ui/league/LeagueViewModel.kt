@@ -3,9 +3,9 @@ package com.redveloper.sportapp.ui.league
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import com.redveloper.sportapp.domain.usecase.ContentUseCaseImpl
+import com.redveloper.sportapp.domain.usecase.ContentUseCase
 
-class LeagueViewModel (contentUsecase : ContentUseCaseImpl) : ViewModel() {
+class LeagueViewModel (contentUsecase : ContentUseCase) : ViewModel() {
 
     private val countryName : MutableLiveData<String> = MutableLiveData()
 

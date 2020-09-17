@@ -5,7 +5,7 @@ import com.redveloper.sportapp.domain.model.*
 import com.redveloper.sportapp.domain.repository.RepositoryImpl
 import com.redveloper.sportapp.vo.Resource
 
-class ContentInteractor (private val repositoryImpl: RepositoryImpl) : ContentUseCaseImpl {
+class ContentInteractor (private val repositoryImpl: RepositoryImpl) : ContentUseCase {
     override fun getAllCountries(): LiveData<Resource<List<Country>>> = repositoryImpl.getAllCountries()
 
     override fun getAllLeague(country: String): LiveData<Resource<List<League>>> = repositoryImpl.getAllLeague(country)
