@@ -1,12 +1,11 @@
 package com.redveloper.sportapp.ui.league
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.SpinnerAdapter
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,9 +16,9 @@ import com.redveloper.sportapp.viewmodel.ViewModelFactory
 import com.redveloper.sportapp.vo.Resource
 import kotlinx.android.synthetic.main.activity_league.*
 
-class LeagueActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener{
+class LeagueActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
-    private lateinit var viewModel : LeagueViewModel
+    private lateinit var viewModel: LeagueViewModel
     private lateinit var leagueAdapter: LeagueAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,7 +30,7 @@ class LeagueActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener{
 
         collectDataCountries()
         //set recycler league
-        with(rv_league){
+        with(rv_league) {
             layoutManager = LinearLayoutManager(this@LeagueActivity)
             adapter = leagueAdapter
         }
@@ -48,11 +47,12 @@ class LeagueActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener{
     override fun onNothingSelected(p0: AdapterView<*>?) {
     }
 
-    private fun collectDataCountries(){
+    private fun collectDataCountries() {
         viewModel.countries.observe(this, Observer { countries ->
-            if (countries != null){
-                when(countries){
-                    is Resource.Loading -> {}
+            if (countries != null) {
+                when (countries) {
+                    is Resource.Loading -> {
+                    }
                     is Resource.Succes -> {
                         showDropdownCountries(countries.data)
                     }
@@ -65,16 +65,16 @@ class LeagueActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener{
     }
 
     private fun showDropdownCountries(countries: List<Country>?) {
-        if(!countries.isNullOrEmpty()){
+        if (!countries.isNullOrEmpty()) {
             val listCountry = ArrayList<String>()
-            for (data in countries){
+            for (data in countries) {
                 listCountry.add(data.name)
             }
             spinner_country_league.adapter = setAdapterSpinner(listCountry)
         }
     }
 
-    private fun setAdapterSpinner(datas: List<String>) : SpinnerAdapter{
+    private fun setAdapterSpinner(datas: List<String>): SpinnerAdapter {
         val spinnerAdapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, datas)
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         return spinnerAdapter
@@ -83,8 +83,8 @@ class LeagueActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener{
     private fun collectDataLeague(countryName: String) {
         viewModel.setCountryName(countryName)
         viewModel.league.observe(this, Observer { leagues ->
-            if (leagues != null){
-                when(leagues){
+            if (leagues != null) {
+                when (leagues) {
                     is Resource.Succes -> {
                         leagueAdapter.setDataLeague(leagues.data)
                         leagueAdapter.notifyDataSetChanged()

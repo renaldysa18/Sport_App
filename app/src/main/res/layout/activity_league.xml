@@ -49,21 +49,10 @@
         android:layout_height="0dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
-        app:layout_constraintBottom_toTopOf="@id/btn_save_league"
+        app:layout_constraintBottom_toTopOf="@id/gd_bottom"
         app:layout_constraintLeft_toLeftOf="@id/gd_left"
         app:layout_constraintRight_toRightOf="@id/gd_right"
         app:layout_constraintTop_toBottomOf="@id/spinner_country_league"
         tools:listitem="@layout/layout_item_league" />
-
-    <Button
-        android:id="@+id/btn_save_league"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:background="@color/colorGreen"
-        android:text="@string/save"
-        android:textColor="@color/colorWhite"
-        app:layout_constraintBottom_toTopOf="@id/gd_bottom"
-        app:layout_constraintLeft_toLeftOf="@id/gd_left"
-        app:layout_constraintRight_toRightOf="@id/gd_right" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
