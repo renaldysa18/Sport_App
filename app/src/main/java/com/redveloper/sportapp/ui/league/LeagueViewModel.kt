@@ -5,17 +5,17 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.redveloper.sportapp.domain.usecase.ContentUseCase
 
-class LeagueViewModel (contentUsecase : ContentUseCase) : ViewModel() {
+class LeagueViewModel(contentUsecase: ContentUseCase) : ViewModel() {
 
-    private val countryName : MutableLiveData<String> = MutableLiveData()
+    private val countryName: MutableLiveData<String> = MutableLiveData()
 
-    fun setCountryName(name : String){
+    fun setCountryName(name: String) {
         countryName.value = name
     }
 
     val countries = contentUsecase.getAllCountries()
 
-    val league = Transformations.switchMap(countryName){name ->
+    val league = Transformations.switchMap(countryName) { name ->
         contentUsecase.getAllLeague(name)
     }
 }

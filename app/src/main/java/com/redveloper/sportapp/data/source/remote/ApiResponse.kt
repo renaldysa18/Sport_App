@@ -4,7 +4,7 @@ class ApiResponse <T> (val status : StatusResponse, val body : T?, val message: 
     companion object{
         fun <T> success(body: T) : ApiResponse<T> = ApiResponse(StatusResponse.SUCCESS, body, null)
 
-        fun <T> empty(msg: String, body: T) : ApiResponse<T> = ApiResponse(StatusResponse.EMPTY, body, msg)
+        fun <T> empty() : ApiResponse<T> = ApiResponse(StatusResponse.EMPTY,null, null)
 
         fun <T> error(msg : String) : ApiResponse<T> = ApiResponse(StatusResponse.ERROR, null, msg)
     }

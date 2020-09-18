@@ -1,4 +1,4 @@
-package com.redveloper.sportapp.utils
+package com.redveloper.sportapp.utils.datamapper
 
 import com.redveloper.sportapp.data.source.local.entity.*
 import com.redveloper.sportapp.domain.model.*

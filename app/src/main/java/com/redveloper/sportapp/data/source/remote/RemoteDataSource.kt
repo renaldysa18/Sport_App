@@ -50,25 +50,22 @@ class RemoteDataSource private constructor(private val apiService: ApiService) {
         return result
     }
 
-    fun getAllLeague(country: String): LiveData<ApiResponse<List<LeagueResponse>>> {
-        val result = MutableLiveData<ApiResponse<List<LeagueResponse>>>()
+    fun getAllLeague(country: String, callback : LoadLeagueCallback){
         val client = apiService.getAllLeague(country)
         client.enqueue(object : Callback<ListLeagueResponse> {
             override fun onFailure(call: Call<ListLeagueResponse>, t: Throwable) {
-                result.value = ApiResponse.error(t.message.toString())
+                callback.onResult(ApiResponse.error(t.message.toString()))
             }
-
             override fun onResponse(
                 call: Call<ListLeagueResponse>,
                 response: Response<ListLeagueResponse>
             ) {
                 val dataArray = response.body()?.countrys
                 if (dataArray != null) {
-                    result.value = ApiResponse.success(dataArray)
+                    callback.onResult(ApiResponse.success(dataArray))
                 }
             }
         })
-        return result
     }
 
     fun getAllTeamInLeague(league: String): LiveData<ApiResponse<List<TeamResponse>>> {

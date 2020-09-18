@@ -1,11 +1,14 @@
 package com.redveloper.sportapp.data
 
+import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.redveloper.sportapp.data.source.local.LocalDataSource
-import com.redveloper.sportapp.data.source.local.entity.*
 import com.redveloper.sportapp.data.source.remote.ApiResponse
+import com.redveloper.sportapp.data.source.remote.LoadLeagueCallback
 import com.redveloper.sportapp.data.source.remote.RemoteDataSource
+import com.redveloper.sportapp.data.source.remote.StatusResponse
 import com.redveloper.sportapp.data.source.remote.response.classement.ClassementResponse
 import com.redveloper.sportapp.data.source.remote.response.country.CountryResponse
 import com.redveloper.sportapp.data.source.remote.response.league.LeagueResponse
@@ -14,8 +17,9 @@ import com.redveloper.sportapp.data.source.remote.response.team.TeamResponse
 import com.redveloper.sportapp.domain.model.*
 import com.redveloper.sportapp.domain.repository.RepositoryImpl
 import com.redveloper.sportapp.utils.AppExecutors
-import com.redveloper.sportapp.utils.DataMapperEntityToDomain
-import com.redveloper.sportapp.utils.DataMapperResponseToEntity
+import com.redveloper.sportapp.utils.datamapper.DataMapperEntityToDomain
+import com.redveloper.sportapp.utils.datamapper.DataMapperResponseToEntity
+import com.redveloper.sportapp.utils.datamapper.DataMapperResponsetoDomain
 import com.redveloper.sportapp.vo.Resource
 
 
@@ -59,26 +63,33 @@ class Repository private constructor(
     }
 
     override fun getAllLeague(country: String): LiveData<Resource<List<League>>> {
-        return object : NetworkBoundResource<List<League>, List<LeagueResponse>>(appExecutors){
-            override fun loadFromDB(): LiveData<List<League>> {
-                return Transformations.map(localDataSouce.getAllLeague()){
-                    DataMapperEntityToDomain.mapLeagueEntityToDomain(it)
+        val result = MutableLiveData<Resource<List<League>>>()
+        remoteDataSource.getAllLeague(country, object : LoadLeagueCallback{
+            override fun onResult(data: ApiResponse<List<LeagueResponse>>) {
+                when(data.status){
+                    StatusResponse.SUCCESS -> {
+                        if (!data.body.isNullOrEmpty()){
+                            Log.i("dataLeague", data.body.toString())
+                            val item = DataMapperResponsetoDomain.mapLeagueResponseToDomain(data.body)
+                            if (!item.isNullOrEmpty()){
+                                result.value = Resource.Succes(item)
+                            }
+                        }
+                    }
+                    StatusResponse.ERROR -> {
+                        if (data.message != null){
+                            Log.i("dataLeague", data.message)
+                            result.value = Resource.Error(message = data.message)
+                        }
+                    }
+                    StatusResponse.EMPTY -> {
+                        Log.i("dataLeague", "empty")
+                        result.value = Resource.Loading()
+                    }
                 }
             }
-
-            override fun shouldFetch(data: List<League>?): Boolean {
-                return true
-            }
-
-            override fun createCall(): LiveData<ApiResponse<List<LeagueResponse>>> {
-                return remoteDataSource.getAllLeague(country)
-            }
-
-            override fun saveCallResult(data: List<LeagueResponse>) {
-                val dataList = DataMapperResponseToEntity.mapResponseToLeagueEntity(data)
-                localDataSouce.insertLeague(dataList)
-            }
-        }.asLiveData()
+        })
+        return result
     }
 
     override fun getAllTeamInLeague(league: String): LiveData<Resource<List<Team>>> {
