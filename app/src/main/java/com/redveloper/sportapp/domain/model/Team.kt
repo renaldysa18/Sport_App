@@ -13,5 +13,6 @@ data class Team(
     val nameAlt : String,
     val league : String,
     val description : String,
-    val imageFanArt : String
+    val imageFanArt : String,
+    val isFavorite : Boolean
 ) : Parcelable

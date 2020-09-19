@@ -12,4 +12,8 @@ abstract class TeamDao : BaseDao<TeamEntity> {
 
     @Query("SELECT * FROM teamentity WHERE id = :id")
     abstract fun getDetailTeam(id: String) : LiveData<TeamEntity>
+
+    @Query("SELECT * FROM teamentity WHERE isFavorite = 1")
+    abstract fun getFavoriteTeam() : LiveData<List<TeamEntity>>
+    
 }

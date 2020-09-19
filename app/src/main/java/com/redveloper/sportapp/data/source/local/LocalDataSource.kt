@@ -33,7 +33,11 @@ class LocalDataSource private constructor(
     fun getAllTeam() : LiveData<List<TeamEntity>> = teamDao.getAllTeam()
     fun getDetailTeam(idTeam : String) : LiveData<TeamEntity> = teamDao.getDetailTeam(idTeam)
     fun insertAllTeam(data : List<TeamEntity>) = teamDao.insert(data)
-    fun updateTeam(data : TeamEntity) = teamDao.update(data)
+    fun setFavoriteTeam(data : TeamEntity, state : Boolean) {
+        data.isFavorite = state
+        teamDao.update(data)
+    }
+    fun getFavoriteTeam() : LiveData<List<TeamEntity>> = teamDao.getFavoriteTeam()
 
     //league
     fun getSelectedLeague() : LiveData<LeagueEntity> = leagueDao.getSelectedLeague()

@@ -131,7 +131,7 @@ class Repository private constructor(
 
             override fun saveCallResult(data: TeamResponse) {
                 val teamEntity = DataMapperResponseToEntity.mapResponseToDetailTeamEntity(data)
-                localDataSouce.updateTeam(teamEntity)
+//                localDataSouce.updateTeam(teamEntity)
             }
         }.asLiveData()
     }
@@ -198,5 +198,16 @@ class Repository private constructor(
 
     override fun checkLeagueHasItem(): LiveData<Boolean> {
         return localDataSouce.leagueHasItem()
+    }
+
+    override fun getFavoriteTeam(): LiveData<List<Team>> {
+        return Transformations.map(localDataSouce.getFavoriteTeam()){
+            DataMapperEntityToDomain.mapTeamEntityToDomain(it)
+        }
+    }
+
+    override fun setFavoriteTeam(team: Team, state: Boolean) {
+        val teamEntity = DataMapperDomainToEntity.mapTeamDomainToEntity(team)
+        appExecutors.diskIO().execute { localDataSouce.setFavoriteTeam(teamEntity, state) }
     }
 }

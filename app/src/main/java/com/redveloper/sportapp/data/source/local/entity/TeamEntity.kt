@@ -1,9 +1,12 @@
 package com.redveloper.sportapp.data.source.local.entity
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 @Entity
 data class TeamEntity(
     @PrimaryKey
@@ -24,5 +27,7 @@ data class TeamEntity(
     @ColumnInfo(name = "description")
     val description : String,
     @ColumnInfo(name = "imageFanart")
-    val imageFanart : String
-)
+    val imageFanart : String,
+    @ColumnInfo(name = "isFavorite")
+    var isFavorite : Boolean = false
+) : Parcelable

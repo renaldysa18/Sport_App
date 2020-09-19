@@ -19,4 +19,7 @@ interface RepositoryImpl {
     fun setSelectedLeague(league : League)
     fun getSelectedLeague() : LiveData<League>
     fun checkLeagueHasItem() : LiveData<Boolean>
+
+    fun getFavoriteTeam() : LiveData<List<Team>>
+    fun setFavoriteTeam(team : Team, state : Boolean)
 }

@@ -44,7 +44,8 @@ object DataMapperEntityToDomain {
                 nameAlt = it.nameAlt,
                 league = it.league,
                 description = it.description,
-                imageFanArt = it.imageFanart
+                imageFanArt = it.imageFanart,
+                isFavorite = it.isFavorite
             )
         }
     }
@@ -73,7 +74,8 @@ object DataMapperEntityToDomain {
             nameAlt = input.nameAlt,
             league = input.league,
             description = input.description,
-            imageFanArt = input.imageFanart
+            imageFanArt = input.imageFanart,
+            isFavorite = input.isFavorite
         )
     }
 }
