@@ -13,8 +13,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".ui.detail.team.DetailTeamActivity"
-            android:label="@string/title_activity_detail_team"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".ui.league.LeagueActivity" />
         <activity android:name=".ui.main.MainActivity" />
         <activity

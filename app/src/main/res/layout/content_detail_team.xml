@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".ui.detail.team.DetailTeamActivity"
+    tools:showIn="@layout/activity_detail_team">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gd_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="20dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gd_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_end="20dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gd_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="20dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gd_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="20dp" />
+
+        <ImageView
+            android:id="@+id/img_logo_detail_team"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="centerInside"
+            app:layout_constraintLeft_toRightOf="@id/gd_left"
+            app:layout_constraintTop_toBottomOf="@id/gd_top"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/tv_name_detail_team"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:maxLines="2"
+            android:text="@string/title"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintLeft_toRightOf="@id/img_logo_detail_team"
+            app:layout_constraintRight_toLeftOf="@id/gd_right"
+            app:layout_constraintTop_toBottomOf="@id/gd_top" />
+
+        <TextView
+            android:id="@+id/tv_altName_detail_team"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/alt_name"
+            app:layout_constraintLeft_toLeftOf="@id/tv_name_detail_team"
+            app:layout_constraintRight_toRightOf="@id/gd_right"
+            app:layout_constraintTop_toBottomOf="@id/tv_name_detail_team" />
+
+        <TextView
+            android:id="@+id/tv_stadium_deatil_team"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/stadium"
+            app:layout_constraintLeft_toLeftOf="@id/gd_left"
+            app:layout_constraintRight_toRightOf="@id/gd_right"
+            app:layout_constraintTop_toBottomOf="@id/img_logo_detail_team" />
+
+        <TextView
+            android:id="@+id/tv_league_detail_team"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/league"
+            app:layout_constraintLeft_toLeftOf="@id/gd_left"
+            app:layout_constraintRight_toRightOf="@id/gd_right"
+            app:layout_constraintTop_toBottomOf="@id/tv_stadium_deatil_team" />
+
+        <TextView
+            android:id="@+id/tv_desc_detail_team"
+            app:layout_constraintBottom_toTopOf="@id/gd_bottom"
+            app:layout_constraintTop_toBottomOf="@id/tv_league_detail_team"
+            app:layout_constraintRight_toRightOf="@id/gd_right"
+            app:layout_constraintLeft_toLeftOf="@id/gd_left"
+            android:text="@string/descriptif"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>
