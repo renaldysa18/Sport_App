@@ -1,13 +1,11 @@
 package com.redveloper.sportapp.ui.match
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.redveloper.sportapp.domain.usecase.ContentUseCase
 
-class MatchViewModel : ViewModel() {
+class MatchViewModel(private val contentUseCase: ContentUseCase) : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
-    }
-    val text: LiveData<String> = _text
+    val league = contentUseCase.getSelectedLeague()
+
+    fun match(idLeague : String) = contentUseCase.getAllMatchInLeague(idLeague)
 }

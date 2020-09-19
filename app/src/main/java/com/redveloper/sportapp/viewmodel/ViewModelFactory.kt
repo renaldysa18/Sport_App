@@ -8,6 +8,7 @@ import com.redveloper.sportapp.domain.usecase.ContentUseCase
 import com.redveloper.sportapp.ui.classement.ClassementViewModel
 import com.redveloper.sportapp.ui.league.LeagueViewModel
 import com.redveloper.sportapp.ui.main.MainViewModel
+import com.redveloper.sportapp.ui.match.MatchViewModel
 import com.redveloper.sportapp.ui.splash.SplashViewModel
 import com.redveloper.sportapp.ui.team.TeamViewModel
 
@@ -42,6 +43,9 @@ class ViewModelFactory private constructor(private val contentUseCase : ContentU
             }
             modelClass.isAssignableFrom(TeamViewModel::class.java) -> {
                 TeamViewModel(contentUseCase) as T
+            }
+            modelClass.isAssignableFrom(MatchViewModel::class.java) -> {
+                MatchViewModel(contentUseCase) as T
             }
             else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)
         }
