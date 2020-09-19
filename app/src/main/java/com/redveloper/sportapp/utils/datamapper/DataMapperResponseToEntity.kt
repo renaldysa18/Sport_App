@@ -23,7 +23,7 @@ object DataMapperResponseToEntity {
         val dataList = ArrayList<LeagueEntity>()
         input.map {
             val data = LeagueEntity(
-                id = it.idLeague,
+                idLeague = it.idLeague,
                 name = it.strLeague,
                 logo = it.strLogo,
                 gender = it.strGender

@@ -22,4 +22,5 @@ class ContentInteractor (private val repositoryImpl: RepositoryImpl) : ContentUs
     ): LiveData<Resource<List<Classement>>> = repositoryImpl.getAllClassementInLeague(idLeague, season)
 
     override fun setSelectedLeaegue(league: League) = repositoryImpl.setSelectedLeague(league)
+    override fun getSelectedLeague(): LiveData<League> = repositoryImpl.getSelectedLeague()
 }

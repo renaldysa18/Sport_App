@@ -40,17 +40,9 @@ class MainActivity : AppCompatActivity() {
         //viewmodel
         val factory = ViewModelFactory.getInstance(this)
         mainViewModel = ViewModelProvider(this, factory)[MainViewModel::class.java]
-        mainViewModel.countries.observe(this, Observer { countries ->
-            if (countries != null){
-                when(countries) {
-                    is Resource.Loading -> {}
-                    is Resource.Succes -> {
-                        Log.i("dataCountries" , countries.data.toString())
-                    }
-                    is Resource.Error -> {
-                        Log.i("errorDataCountries", countries.message.toString())
-                    }
-                }
+        mainViewModel.laegue.observe(this, Observer { data ->
+            if (data != null){
+                Log.i("selectedleague", data.toString())
             }
         })
     }

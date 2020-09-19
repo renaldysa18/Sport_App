@@ -70,7 +70,6 @@ class Repository private constructor(
                 when(data.status){
                     StatusResponse.SUCCESS -> {
                         if (!data.body.isNullOrEmpty()){
-                            Log.i("dataLeague", data.body.toString())
                             val item = DataMapperResponsetoDomain.mapLeagueResponseToDomain(data.body)
                             if (!item.isNullOrEmpty()){
                                 result.value = Resource.Succes(item)
@@ -79,12 +78,10 @@ class Repository private constructor(
                     }
                     StatusResponse.ERROR -> {
                         if (data.message != null){
-                            Log.i("dataLeague", data.message)
                             result.value = Resource.Error(message = data.message)
                         }
                     }
                     StatusResponse.EMPTY -> {
-                        Log.i("dataLeague", "empty")
                         result.value = Resource.Loading()
                     }
                 }
@@ -191,5 +188,11 @@ class Repository private constructor(
     override fun setSelectedLeague(league: League) {
         val leagueEntity = DataMapperDomainToEntity.mapLeaguDomainToEntity(league)
         appExecutors.diskIO().execute { localDataSouce.insertLeague(leagueEntity) }
+    }
+
+    override fun getSelectedLeague(): LiveData<League> {
+        return Transformations.map(localDataSouce.getSelectedLeague()){
+            DataMapperEntityToDomain.mapLeagueEntityToDomain(it)
+        }
     }
 }

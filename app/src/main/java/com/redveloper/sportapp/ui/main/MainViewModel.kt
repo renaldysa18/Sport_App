@@ -5,5 +5,5 @@ import com.redveloper.sportapp.domain.usecase.ContentUseCase
 
 class MainViewModel(contentUsecase : ContentUseCase) : ViewModel(){
 
-    val countries = contentUsecase.getAllCountries()
+    val laegue = contentUsecase.getSelectedLeague()
 }

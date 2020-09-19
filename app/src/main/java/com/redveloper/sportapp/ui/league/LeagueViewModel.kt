@@ -3,9 +3,10 @@ package com.redveloper.sportapp.ui.league
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import com.redveloper.sportapp.domain.model.League
 import com.redveloper.sportapp.domain.usecase.ContentUseCase
 
-class LeagueViewModel(contentUsecase: ContentUseCase) : ViewModel() {
+class LeagueViewModel(private val contentUsecase: ContentUseCase) : ViewModel() {
 
     private val countryName: MutableLiveData<String> = MutableLiveData()
 
@@ -18,4 +19,6 @@ class LeagueViewModel(contentUsecase: ContentUseCase) : ViewModel() {
     val league = Transformations.switchMap(countryName) { name ->
         contentUsecase.getAllLeague(name)
     }
+
+    fun setSelectedLeague(league : League) = contentUsecase.setSelectedLeaegue(league)
 }

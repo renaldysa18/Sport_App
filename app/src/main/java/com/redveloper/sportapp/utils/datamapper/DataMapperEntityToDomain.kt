@@ -14,15 +14,13 @@ object DataMapperEntityToDomain {
         }
     }
 
-    fun mapLeagueEntityToDomain(input : List<LeagueEntity>) : List<League> {
-        return input.map {
-            League(
-                id = it.id,
-                name = it.name,
-                logo = it.logo,
-                gender = it.gender
-            )
-        }
+    fun mapLeagueEntityToDomain(input : LeagueEntity) : League {
+        return League(
+            id = input.idLeague,
+            name = input.name,
+            logo = input.logo,
+            gender = input.gender
+        )
     }
 
     fun mapMatchEntityToDomain(input : List<MatchEntity>) : List<Match> {

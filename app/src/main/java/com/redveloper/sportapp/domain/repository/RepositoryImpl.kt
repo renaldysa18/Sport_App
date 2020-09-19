@@ -17,4 +17,5 @@ interface RepositoryImpl {
     ): LiveData<Resource<List<Classement>>>
 
     fun setSelectedLeague(league : League)
+    fun getSelectedLeague() : LiveData<League>
 }

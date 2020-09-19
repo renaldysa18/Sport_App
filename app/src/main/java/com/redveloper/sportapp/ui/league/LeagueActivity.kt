@@ -1,5 +1,6 @@
 package com.redveloper.sportapp.ui.league
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -11,12 +12,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.redveloper.sportapp.R
 import com.redveloper.sportapp.domain.model.Country
+import com.redveloper.sportapp.domain.model.League
+import com.redveloper.sportapp.ui.main.MainActivity
 import com.redveloper.sportapp.utils.toast
 import com.redveloper.sportapp.viewmodel.ViewModelFactory
 import com.redveloper.sportapp.vo.Resource
 import kotlinx.android.synthetic.main.activity_league.*
 
-class LeagueActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
+class LeagueActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener, LeagueAdapter.LeagueAdapterImpl {
 
     private lateinit var viewModel: LeagueViewModel
     private lateinit var leagueAdapter: LeagueAdapter
@@ -25,6 +28,8 @@ class LeagueActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_league)
         leagueAdapter = LeagueAdapter()
+        leagueAdapter.setListener(this)
+
         val factory = ViewModelFactory.getInstance(this)
         viewModel = ViewModelProvider(this, factory)[LeagueViewModel::class.java]
 
@@ -37,6 +42,11 @@ class LeagueActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
         //countries selected item
         spinner_country_league.onItemSelectedListener = this
+    }
+
+    override fun onLeagueSelected(data: League) {
+        viewModel.setSelectedLeague(data)
+        toMain()
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
@@ -95,5 +105,10 @@ class LeagueActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                 }
             }
         })
+    }
+
+    private fun toMain(){
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
     }
 }

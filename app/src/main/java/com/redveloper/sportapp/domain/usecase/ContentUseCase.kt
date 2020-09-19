@@ -16,4 +16,5 @@ interface ContentUseCase {
     ): LiveData<Resource<List<Classement>>>
 
     fun setSelectedLeaegue(league : League)
+    fun getSelectedLeague() : LiveData<League>
 }
