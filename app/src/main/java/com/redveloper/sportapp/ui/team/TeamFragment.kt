@@ -1,5 +1,6 @@
 package com.redveloper.sportapp.ui.team
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,13 +13,15 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.redveloper.sportapp.R
 import com.redveloper.sportapp.domain.model.Team
+import com.redveloper.sportapp.ui.detail.team.DetailTeamActivity
+import com.redveloper.sportapp.ui.detail.team.DetailTeamViewModel
 import com.redveloper.sportapp.utils.DataDummy
 import com.redveloper.sportapp.utils.toast
 import com.redveloper.sportapp.viewmodel.ViewModelFactory
 import com.redveloper.sportapp.vo.Resource
 import kotlinx.android.synthetic.main.fragment_team.*
 
-class TeamFragment : Fragment() {
+class TeamFragment : Fragment(), TeamAdapter.TeamAdapterImpl {
 
     private lateinit var viewModel: TeamViewModel
     private lateinit var teamAdapter: TeamAdapter
@@ -34,6 +37,8 @@ class TeamFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         teamAdapter = TeamAdapter()
+        teamAdapter.setListener(this)
+
         val factory = ViewModelFactory.getInstance(requireActivity())
         viewModel = ViewModelProvider(requireActivity(), factory)[TeamViewModel::class.java]
 
@@ -47,6 +52,14 @@ class TeamFragment : Fragment() {
                 getDataTeam(data.name)
             }
         })
+    }
+
+    override fun onTeamClicked() {
+        toDetail()
+    }
+
+    private fun toDetail(){
+        context?.startActivity(Intent(requireActivity(), DetailTeamActivity::class.java))
     }
 
     private fun getDataTeam(nameLeague : String){
