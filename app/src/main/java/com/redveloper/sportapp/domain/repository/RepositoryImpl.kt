@@ -15,4 +15,6 @@ interface RepositoryImpl {
         idLeague: String,
         season: String
     ): LiveData<Resource<List<Classement>>>
+
+    fun setSelectedLeague(league : League)
 }

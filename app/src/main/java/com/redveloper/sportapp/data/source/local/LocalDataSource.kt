@@ -36,7 +36,7 @@ class LocalDataSource private constructor(
     fun updateTeam(data : TeamEntity) = teamDao.update(data)
 
     //league
-    fun insertLeague(data : List<LeagueEntity>) = leagueDao.insert(data)
+    fun insertLeague(data : LeagueEntity) = leagueDao.insert(data)
 
     //match
     fun getAllMatch() : LiveData<List<MatchEntity>> = matchDao.getAllMatch()

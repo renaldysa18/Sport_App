@@ -17,6 +17,7 @@ import com.redveloper.sportapp.data.source.remote.response.team.TeamResponse
 import com.redveloper.sportapp.domain.model.*
 import com.redveloper.sportapp.domain.repository.RepositoryImpl
 import com.redveloper.sportapp.utils.AppExecutors
+import com.redveloper.sportapp.utils.datamapper.DataMapperDomainToEntity
 import com.redveloper.sportapp.utils.datamapper.DataMapperEntityToDomain
 import com.redveloper.sportapp.utils.datamapper.DataMapperResponseToEntity
 import com.redveloper.sportapp.utils.datamapper.DataMapperResponsetoDomain
@@ -185,5 +186,10 @@ class Repository private constructor(
                 localDataSouce.insertClassement(dataList)
             }
         }.asLiveData()
+    }
+
+    override fun setSelectedLeague(league: League) {
+        val leagueEntity = DataMapperDomainToEntity.mapLeaguDomainToEntity(league)
+        appExecutors.diskIO().execute { localDataSouce.insertLeague(leagueEntity) }
     }
 }

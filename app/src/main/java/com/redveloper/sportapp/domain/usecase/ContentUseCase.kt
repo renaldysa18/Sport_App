@@ -14,4 +14,6 @@ interface ContentUseCase {
         idLeague: String,
         season: String
     ): LiveData<Resource<List<Classement>>>
+
+    fun setSelectedLeaegue(league : League)
 }
