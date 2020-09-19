@@ -8,6 +8,7 @@ import com.redveloper.sportapp.domain.usecase.ContentUseCase
 import com.redveloper.sportapp.ui.classement.ClassementViewModel
 import com.redveloper.sportapp.ui.league.LeagueViewModel
 import com.redveloper.sportapp.ui.main.MainViewModel
+import com.redveloper.sportapp.ui.splash.SplashViewModel
 
 class ViewModelFactory private constructor(private val contentUseCase : ContentUseCase) : ViewModelProvider.NewInstanceFactory(){
 
@@ -28,6 +29,9 @@ class ViewModelFactory private constructor(private val contentUseCase : ContentU
         return when{
             modelClass.isAssignableFrom(MainViewModel::class.java) -> {
                 MainViewModel(contentUseCase) as T
+            }
+            modelClass.isAssignableFrom(SplashViewModel::class.java) -> {
+                SplashViewModel(contentUseCase) as T
             }
             modelClass.isAssignableFrom(LeagueViewModel::class.java) -> {
                 LeagueViewModel(contentUseCase) as T
