@@ -10,4 +10,7 @@ abstract class LeagueDao : BaseDao<LeagueEntity> {
 
     @Query("SELECT * FROM leagueentity WHERE id = :id LIMIT 1")
     abstract fun getSelectedLeague(id: Int = 0) : LiveData<LeagueEntity>
+
+    @Query("SELECT EXISTS(SELECT * FROM leagueentity)")
+    abstract fun checkItemLeague() : LiveData<Boolean>
 }

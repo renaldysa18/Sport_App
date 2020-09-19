@@ -195,4 +195,8 @@ class Repository private constructor(
             DataMapperEntityToDomain.mapLeagueEntityToDomain(it)
         }
     }
+
+    override fun checkLeagueHasItem(): LiveData<Boolean> {
+        return localDataSouce.leagueHasItem()
+    }
 }

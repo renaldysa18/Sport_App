@@ -23,4 +23,5 @@ class ContentInteractor (private val repositoryImpl: RepositoryImpl) : ContentUs
 
     override fun setSelectedLeaegue(league: League) = repositoryImpl.setSelectedLeague(league)
     override fun getSelectedLeague(): LiveData<League> = repositoryImpl.getSelectedLeague()
+    override fun checkLeagueHasItem(): LiveData<Boolean> = repositoryImpl.checkLeagueHasItem()
 }

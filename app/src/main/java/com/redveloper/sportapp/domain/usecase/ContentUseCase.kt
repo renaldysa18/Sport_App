@@ -17,4 +17,5 @@ interface ContentUseCase {
 
     fun setSelectedLeaegue(league : League)
     fun getSelectedLeague() : LiveData<League>
+    fun checkLeagueHasItem() : LiveData<Boolean>
 }
