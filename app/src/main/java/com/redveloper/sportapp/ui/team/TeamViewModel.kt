@@ -1,13 +1,11 @@
 package com.redveloper.sportapp.ui.team
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.redveloper.sportapp.domain.usecase.ContentUseCase
 
-class TeamViewModel : ViewModel() {
+class TeamViewModel(private val contentUseCase: ContentUseCase) : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is dashboard Fragment"
-    }
-    val text: LiveData<String> = _text
+    val league = contentUseCase.getSelectedLeague()
+
+    fun getAllTeam(league: String) = contentUseCase.getAllTeamInLeague(league)
 }
