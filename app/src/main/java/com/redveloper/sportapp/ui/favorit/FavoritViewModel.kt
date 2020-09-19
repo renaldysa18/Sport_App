@@ -1,7 +1,9 @@
 package com.redveloper.sportapp.ui.favorit
 
 import androidx.lifecycle.ViewModel
+import com.redveloper.sportapp.domain.usecase.ContentUseCase
 
-class FavoritViewModel : ViewModel(){
+class FavoritViewModel(private val contentUseCase: ContentUseCase) : ViewModel(){
 
+    val team = contentUseCase.getFavoriteTeam()
 }
