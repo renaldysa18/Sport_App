@@ -53,13 +53,13 @@ class TeamAdapter : RecyclerView.Adapter<TeamAdapter.ViewHolder>() {
                 tv_stadium_item_team.setText(data.stadiumLocation)
 
                 setOnClickListener {
-                    listener.onTeamClicked()
+                    listener.onTeamClicked(data)
                 }
             }
         }
     }
 
     interface TeamAdapterImpl {
-        fun onTeamClicked()
+        fun onTeamClicked(data : Team)
     }
 }

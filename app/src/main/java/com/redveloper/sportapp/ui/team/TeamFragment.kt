@@ -54,12 +54,10 @@ class TeamFragment : Fragment(), TeamAdapter.TeamAdapterImpl {
         })
     }
 
-    override fun onTeamClicked() {
-        toDetail()
-    }
-
-    private fun toDetail(){
-        context?.startActivity(Intent(requireActivity(), DetailTeamActivity::class.java))
+    override fun onTeamClicked(data: Team) {
+        val intent = Intent(requireActivity(), DetailTeamActivity::class.java)
+        intent.putExtra(DetailTeamActivity.EXTRAS, data)
+        context?.startActivity(intent)
     }
 
     private fun getDataTeam(nameLeague : String){

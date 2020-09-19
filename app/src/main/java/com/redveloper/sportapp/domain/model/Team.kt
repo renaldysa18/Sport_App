@@ -1,5 +1,9 @@
 package com.redveloper.sportapp.domain.model
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class Team(
     val id : String,
     val name : String,
@@ -10,4 +14,4 @@ data class Team(
     val league : String,
     val description : String,
     val imageFanArt : String
-)
+) : Parcelable

@@ -93,13 +93,14 @@
 
         <TextView
             android:id="@+id/tv_desc_detail_team"
-            app:layout_constraintBottom_toTopOf="@id/gd_bottom"
-            app:layout_constraintTop_toBottomOf="@id/tv_league_detail_team"
-            app:layout_constraintRight_toRightOf="@id/gd_right"
-            app:layout_constraintLeft_toLeftOf="@id/gd_left"
-            android:text="@string/descriptif"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/descriptif"
+            app:layout_constraintBottom_toTopOf="@id/gd_bottom"
+            app:layout_constraintLeft_toLeftOf="@id/gd_left"
+            app:layout_constraintRight_toRightOf="@id/gd_right"
+            app:layout_constraintTop_toBottomOf="@id/tv_league_detail_team" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
