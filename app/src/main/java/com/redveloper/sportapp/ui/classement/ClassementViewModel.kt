@@ -1,13 +1,12 @@
 package com.redveloper.sportapp.ui.classement
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.redveloper.sportapp.domain.usecase.ContentUseCase
 
-class ClassementViewModel : ViewModel() {
+class ClassementViewModel(private val contentUseCase: ContentUseCase) : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is notifications Fragment"
-    }
-    val text: LiveData<String> = _text
+    val league = contentUseCase.getSelectedLeague()
+
+    fun classement(idLeague: String) = contentUseCase.getAllClassementInLeague(idLeague, "2020-2021")
+
 }

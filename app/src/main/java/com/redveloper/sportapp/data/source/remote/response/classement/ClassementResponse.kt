@@ -3,7 +3,7 @@ package com.redveloper.sportapp.data.source.remote.response.classement
 import com.google.gson.annotations.SerializedName
 
 data class ClassementResponse(
-    @field:SerializedName("idTeam")
+    @field:SerializedName("teamid")
     val idTeam : String,
     @field:SerializedName("name")
     val name : String,

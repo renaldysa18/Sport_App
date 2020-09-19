@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.redveloper.sportapp.di.Injection
 import com.redveloper.sportapp.domain.usecase.ContentUseCase
+import com.redveloper.sportapp.ui.classement.ClassementViewModel
 import com.redveloper.sportapp.ui.league.LeagueViewModel
 import com.redveloper.sportapp.ui.main.MainViewModel
 
@@ -30,6 +31,9 @@ class ViewModelFactory private constructor(private val contentUseCase : ContentU
             }
             modelClass.isAssignableFrom(LeagueViewModel::class.java) -> {
                 LeagueViewModel(contentUseCase) as T
+            }
+            modelClass.isAssignableFrom(ClassementViewModel::class.java) -> {
+                ClassementViewModel(contentUseCase) as T
             }
             else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)
         }

@@ -8,18 +8,21 @@ import com.redveloper.sportapp.R
 import com.redveloper.sportapp.domain.model.Classement
 import kotlinx.android.synthetic.main.layout_item_classement.view.*
 
-class ClassementAdapter : RecyclerView.Adapter<ClassementAdapter.ViewHolder>(){
+class ClassementAdapter : RecyclerView.Adapter<ClassementAdapter.ViewHolder>() {
 
-    private val items : ArrayList<Classement> = ArrayList()
+    private val items: ArrayList<Classement> = ArrayList()
 
-    fun setDataItem(data : List<Classement>?){
+    fun setDataItem(data: List<Classement>?) {
         if (data.isNullOrEmpty()) return
         items.clear()
         items.addAll(data)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.layout_item_classement, parent, false))
+        return ViewHolder(
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.layout_item_classement, parent, false)
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -31,11 +34,12 @@ class ClassementAdapter : RecyclerView.Adapter<ClassementAdapter.ViewHolder>(){
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bindData(data : Classement, position: Int){
-            with(itemView){
-                tv_number_item_classement.text = position.toString()
+        fun bindData(data: Classement, position: Int) {
+            with(itemView) {
+                val rank = (position + 1).toString()
+                tv_number_item_classement.text = rank
                 tv_name_item_classement.text = data.name
-                tv_played_item_classement.text = data.played.toString()
+                 tv_played_item_classement.text = data.played.toString()
                 tv_win_item_classement.text = data.win.toString()
                 tv_draw_item_classement.text = data.draw.toString()
                 tv_loss_item_classement.text = data.loss.toString()
