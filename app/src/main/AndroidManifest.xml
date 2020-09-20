@@ -14,10 +14,10 @@
         <activity
             android:name=".ui.detail.team.DetailTeamActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".ui.league.LeagueActivity" />
         <activity android:name=".ui.splash.SplashActivity" />
+        <activity android:name=".ui.main.MainActivity" />
         <activity
-            android:name=".ui.main.MainActivity"
+            android:name=".ui.league.LeagueActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

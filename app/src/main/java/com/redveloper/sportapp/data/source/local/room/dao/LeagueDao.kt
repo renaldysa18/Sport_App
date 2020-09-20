@@ -10,4 +10,7 @@ abstract class LeagueDao : BaseDao<LeagueEntity> {
 
     @Query("SELECT * FROM leagueentity")
     abstract fun getAllLeague(): Flow<List<LeagueEntity>>
+
+    @Query("DELETE FROM leagueentity")
+    abstract suspend fun deleteOldLeague()
 }

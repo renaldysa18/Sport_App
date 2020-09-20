@@ -90,8 +90,7 @@ class LeagueActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener, 
     }
 
     private fun collectDataLeague(countryName: String) {
-        viewModel.setCountryName(countryName)
-        viewModel.league.observe(this, Observer { leagues ->
+        viewModel.getLeague(countryName).observe(this, Observer { leagues ->
             if (leagues != null) {
                 when (leagues) {
                     is Resource.Success -> {

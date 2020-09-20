@@ -41,7 +41,7 @@ class LocalDataSource private constructor(
     //league
     fun getAllLeague() : Flow<List<LeagueEntity>> = leagueDao.getAllLeague()
     suspend fun insertLeague(data : List<LeagueEntity>) = leagueDao.insert(data)
-
+    suspend fun deleteOldLeague() = leagueDao.deleteOldLeague()
 
     //match
     fun getAllMatch() : Flow<List<MatchEntity>> = matchDao.getAllMatch()

@@ -77,6 +77,7 @@ class Repository private constructor(
             }
 
             override suspend fun saveCallResult(data: List<LeagueResponse>) {
+                localDataSouce.deleteOldLeague()
                 val leagueEntity = DataMapperResponseToEntity.mapResponseToLeagueEntity(data)
                 localDataSouce.insertLeague(leagueEntity)
             }
