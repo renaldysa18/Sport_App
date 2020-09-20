@@ -15,6 +15,7 @@ import com.redveloper.sportapp.R
 import com.redveloper.sportapp.domain.model.Team
 import com.redveloper.sportapp.ui.detail.team.DetailTeamActivity
 import com.redveloper.sportapp.ui.detail.team.DetailTeamViewModel
+import com.redveloper.sportapp.utils.Constanta
 import com.redveloper.sportapp.utils.DataDummy
 import com.redveloper.sportapp.utils.toast
 import com.redveloper.sportapp.viewmodel.ViewModelFactory
@@ -47,7 +48,7 @@ class TeamFragment : Fragment(), TeamAdapter.TeamAdapterImpl {
             adapter = teamAdapter
         }
 
-        getDataTeam("English Premier League")
+        getDataTeam(Constanta.NAME_LEAGUE)
     }
 
     override fun onTeamClicked(data: Team) {

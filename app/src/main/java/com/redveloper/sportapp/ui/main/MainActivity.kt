@@ -26,8 +26,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_classement,
                 R.id.nav_match,
                 R.id.nav_team,
-                R.id.nav_favorit,
-                R.id.nav_setting
+                R.id.nav_favorit
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

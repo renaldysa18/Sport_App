@@ -8,9 +8,7 @@ import com.redveloper.sportapp.domain.usecase.ContentUseCase
 import com.redveloper.sportapp.ui.classement.ClassementViewModel
 import com.redveloper.sportapp.ui.detail.team.DetailTeamViewModel
 import com.redveloper.sportapp.ui.favorit.FavoritViewModel
-import com.redveloper.sportapp.ui.league.LeagueViewModel
 import com.redveloper.sportapp.ui.match.MatchViewModel
-import com.redveloper.sportapp.ui.splash.SplashViewModel
 import com.redveloper.sportapp.ui.team.TeamViewModel
 
 class ViewModelFactory private constructor(private val contentUseCase : ContentUseCase) : ViewModelProvider.NewInstanceFactory(){
@@ -30,12 +28,6 @@ class ViewModelFactory private constructor(private val contentUseCase : ContentU
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return when{
-            modelClass.isAssignableFrom(SplashViewModel::class.java) -> {
-                SplashViewModel(contentUseCase) as T
-            }
-            modelClass.isAssignableFrom(LeagueViewModel::class.java) -> {
-                LeagueViewModel(contentUseCase) as T
-            }
             modelClass.isAssignableFrom(ClassementViewModel::class.java) -> {
                 ClassementViewModel(contentUseCase) as T
             }

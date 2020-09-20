@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.redveloper.sportapp.R
 import com.redveloper.sportapp.domain.model.Match
+import com.redveloper.sportapp.utils.Constanta
 import com.redveloper.sportapp.utils.DataDummy
 import com.redveloper.sportapp.utils.toast
 import com.redveloper.sportapp.viewmodel.ViewModelFactory
@@ -43,7 +44,7 @@ class MatchFragment : Fragment() {
             adapter = matchAdapter
         }
 
-        getDataMatch("4328")
+        getDataMatch(Constanta.ID_LEAGUE)
     }
 
     private fun getDataMatch(idLeague : String) {
