@@ -7,20 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.redveloper.sportapp.R
 import com.redveloper.sportapp.core.domain.model.Team
 import com.redveloper.sportapp.ui.detail.team.DetailTeamActivity
 import com.redveloper.sportapp.core.utils.Constanta
 import com.redveloper.sportapp.core.utils.toast
-import com.redveloper.sportapp.core.viewmodel.ViewModelFactory
 import com.redveloper.sportapp.core.vo.Resource
 import kotlinx.android.synthetic.main.fragment_team.*
+import org.koin.android.ext.android.inject
 
 class TeamFragment : Fragment(), TeamAdapter.TeamAdapterImpl {
 
-    private lateinit var viewModel: TeamViewModel
+    val viewModel: TeamViewModel by inject()
     private lateinit var teamAdapter: TeamAdapter
 
     override fun onCreateView(
@@ -35,9 +34,6 @@ class TeamFragment : Fragment(), TeamAdapter.TeamAdapterImpl {
         super.onViewCreated(view, savedInstanceState)
         teamAdapter = TeamAdapter()
         teamAdapter.setListener(this)
-
-        val factory = ViewModelFactory.getInstance(requireActivity())
-        viewModel = ViewModelProvider(requireActivity(), factory)[TeamViewModel::class.java]
 
         with(rv_team){
             layoutManager = LinearLayoutManager(requireActivity())

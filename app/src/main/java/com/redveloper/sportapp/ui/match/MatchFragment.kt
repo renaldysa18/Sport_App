@@ -6,19 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.redveloper.sportapp.R
 import com.redveloper.sportapp.core.domain.model.Match
 import com.redveloper.sportapp.core.utils.Constanta
 import com.redveloper.sportapp.core.utils.toast
-import com.redveloper.sportapp.core.viewmodel.ViewModelFactory
 import com.redveloper.sportapp.core.vo.Resource
 import kotlinx.android.synthetic.main.fragment_match.*
+import org.koin.android.ext.android.inject
 
 class MatchFragment : Fragment() {
 
-    private lateinit var viewModel: MatchViewModel
+    val viewModel: MatchViewModel by inject()
     private lateinit var matchAdapter: MatchAdapter
 
     override fun onCreateView(
@@ -32,9 +31,6 @@ class MatchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         matchAdapter = MatchAdapter()
-
-        val factory = ViewModelFactory.getInstance(requireActivity())
-        viewModel = ViewModelProvider(requireActivity(), factory)[MatchViewModel::class.java]
 
         with(rv_match){
             layoutManager = LinearLayoutManager(requireActivity())

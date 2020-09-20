@@ -6,18 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.redveloper.sportapp.R
 import com.redveloper.sportapp.core.utils.Constanta
 import com.redveloper.sportapp.core.utils.toast
-import com.redveloper.sportapp.core.viewmodel.ViewModelFactory
 import com.redveloper.sportapp.core.vo.Resource
 import kotlinx.android.synthetic.main.fragment_classement.*
+import org.koin.android.ext.android.inject
 
 class ClassementFragment : Fragment() {
 
-    private lateinit var viewModel: ClassementViewModel
+    val viewModel: ClassementViewModel by inject()
     private lateinit var classementAdapter: ClassementAdapter
 
     override fun onCreateView(
@@ -31,9 +30,6 @@ class ClassementFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         classementAdapter = ClassementAdapter()
-
-        val factory = ViewModelFactory.getInstance(requireActivity())
-        viewModel = ViewModelProvider(requireActivity(), factory)[ClassementViewModel::class.java]
 
         with(rv_classement){
             layoutManager = LinearLayoutManager(requireActivity())

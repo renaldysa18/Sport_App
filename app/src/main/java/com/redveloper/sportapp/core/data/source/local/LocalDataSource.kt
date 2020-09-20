@@ -4,21 +4,11 @@ import com.redveloper.sportapp.core.data.source.local.entity.*
 import com.redveloper.sportapp.core.data.source.local.room.dao.*
 import kotlinx.coroutines.flow.Flow
 
-class LocalDataSource private constructor(
+class LocalDataSource(
     private val classementDao: ClassementDao,
     private val matchDao: MatchDao,
     private val teamDao: TeamDao
 ) {
-
-    companion object {
-        private var instance: LocalDataSource? = null
-
-        fun getInstance(
-            classementDao: ClassementDao,
-            matchDao: MatchDao, teamDao: TeamDao
-        ): LocalDataSource =
-            instance ?: LocalDataSource(classementDao, matchDao, teamDao)
-    }
 
     //classement
     fun getAllClassement(): Flow<List<ClassementEntity>> = classementDao.getAllClassement()

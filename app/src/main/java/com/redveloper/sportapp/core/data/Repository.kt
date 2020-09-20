@@ -17,26 +17,11 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 
-class Repository private constructor(
+class Repository (
     private val remoteDataSource: RemoteDataSource,
     private val localDataSouce: LocalDataSource,
     private val appExecutors: AppExecutors
 ) : RepositoryImpl {
-
-    companion object {
-        @Volatile
-        private var instance: Repository? = null
-
-        fun getInstance(
-            remoteDataSource: RemoteDataSource,
-            localDataSouce: LocalDataSource,
-            appExecutors: AppExecutors
-        ): Repository =
-            instance ?: synchronized(this) {
-                instance ?: Repository(remoteDataSource, localDataSouce, appExecutors)
-            }
-    }
-
 
 
     override fun getAllMatchInLeague(idLeague: String): Flow<Resource<List<Match>>> {

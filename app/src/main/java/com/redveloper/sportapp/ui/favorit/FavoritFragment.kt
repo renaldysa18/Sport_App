@@ -6,15 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.redveloper.sportapp.R
-import com.redveloper.sportapp.core.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_favorit.*
+import org.koin.android.ext.android.inject
 
 class FavoritFragment : Fragment() {
 
-    private lateinit var viewModel : FavoritViewModel
+    val viewModel : FavoritViewModel by inject()
     private lateinit var favoritAdapter: FavoritAdapter
 
     override fun onCreateView(
@@ -28,9 +27,6 @@ class FavoritFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         favoritAdapter = FavoritAdapter()
-
-        val factory = ViewModelFactory.getInstance(requireActivity())
-        viewModel = ViewModelProvider(requireActivity(), factory)[FavoritViewModel::class.java]
 
         with(rv_favorite){
             layoutManager = LinearLayoutManager(requireActivity())
