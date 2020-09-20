@@ -1,11 +1,7 @@
 package com.redveloper.sportapp.data.source.remote
 
-class ApiResponse <T> (val status : StatusResponse, val body : T?, val message: String?){
-    companion object{
-        fun <T> success(body: T) : ApiResponse<T> = ApiResponse(StatusResponse.SUCCESS, body, null)
-
-        fun <T> empty() : ApiResponse<T> = ApiResponse(StatusResponse.EMPTY,null, null)
-
-        fun <T> error(msg : String) : ApiResponse<T> = ApiResponse(StatusResponse.ERROR, null, msg)
-    }
+sealed class ApiResponse<out R> {
+    data class Success<out T>(val data: T) : ApiResponse<T>()
+    data class Error(val errorMessage: String) : ApiResponse<Nothing>()
+    object Empty : ApiResponse<Nothing>()
 }
