@@ -5,5 +5,4 @@ import com.redveloper.sportapp.domain.usecase.ContentUseCase
 
 class SplashViewModel (private val contentUseCase: ContentUseCase) : ViewModel(){
 
-    val league = contentUseCase.checkLeagueHasItem()
 }

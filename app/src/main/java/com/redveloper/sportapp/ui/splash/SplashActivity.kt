@@ -21,13 +21,6 @@ class SplashActivity : AppCompatActivity() {
         val factory = ViewModelFactory.getInstance(this)
         viewModel = ViewModelProvider(this, factory)[SplashViewModel::class.java]
 
-        viewModel.league.observe(this, Observer { state ->
-            if (state) {
-                toMain()
-            } else {
-                toLeague()
-            }
-        })
     }
 
     private fun toMain() {

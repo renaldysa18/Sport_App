@@ -43,11 +43,7 @@ class MatchFragment : Fragment() {
             adapter = matchAdapter
         }
 
-        viewModel.league.observe(this, Observer { data ->
-            if (data != null){
-                getDataMatch(data.id)
-            }
-        })
+        getDataMatch("4328")
     }
 
     private fun getDataMatch(idLeague : String) {
@@ -55,7 +51,7 @@ class MatchFragment : Fragment() {
             if (data != null){
                 when(data){
                     is Resource.Loading -> {}
-                    is Resource.Succes -> {
+                    is Resource.Success -> {
                         showDataMatch(data.data)
                     }
                     is Resource.Error -> {

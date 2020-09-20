@@ -39,12 +39,7 @@ class ClassementFragment : Fragment() {
             adapter = classementAdapter
         }
 
-        viewModel.league.observe(this, Observer { data ->
-            if (data != null){
-                val idLeague = data.id
-                getDataClassement(idLeague)
-            }
-        })
+        getDataClassement("4328")
     }
 
     private fun getDataClassement(idLeague: String) {
@@ -52,7 +47,7 @@ class ClassementFragment : Fragment() {
             if (data != null){
                 when(data){
                     is Resource.Loading -> {}
-                    is Resource.Succes -> {
+                    is Resource.Success -> {
                         classementAdapter.setDataItem(data.data)
                         classementAdapter.notifyDataSetChanged()
                     }

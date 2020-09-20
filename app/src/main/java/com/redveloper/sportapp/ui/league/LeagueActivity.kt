@@ -45,7 +45,6 @@ class LeagueActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener, 
     }
 
     override fun onLeagueSelected(data: League) {
-        viewModel.setSelectedLeague(data)
         toMain()
     }
 
@@ -63,7 +62,7 @@ class LeagueActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener, 
                 when (countries) {
                     is Resource.Loading -> {
                     }
-                    is Resource.Succes -> {
+                    is Resource.Success -> {
                         showDropdownCountries(countries.data)
                     }
                     is Resource.Error -> {
@@ -95,7 +94,7 @@ class LeagueActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener, 
         viewModel.league.observe(this, Observer { leagues ->
             if (leagues != null) {
                 when (leagues) {
-                    is Resource.Succes -> {
+                    is Resource.Success -> {
                         leagueAdapter.setDataLeague(leagues.data)
                         leagueAdapter.notifyDataSetChanged()
                     }

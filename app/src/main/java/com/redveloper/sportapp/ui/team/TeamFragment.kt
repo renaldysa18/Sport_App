@@ -47,11 +47,7 @@ class TeamFragment : Fragment(), TeamAdapter.TeamAdapterImpl {
             adapter = teamAdapter
         }
 
-        viewModel.league.observe(this, Observer { data ->
-            if (data != null){
-                getDataTeam(data.name)
-            }
-        })
+        getDataTeam("English Premier League")
     }
 
     override fun onTeamClicked(data: Team) {
@@ -65,7 +61,7 @@ class TeamFragment : Fragment(), TeamAdapter.TeamAdapterImpl {
             if (data != null){
                 when(data){
                     is Resource.Loading -> {}
-                    is Resource.Succes -> {
+                    is Resource.Success -> {
                         showDataTeam(data.data)
                     }
                     is Resource.Error -> {
