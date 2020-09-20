@@ -1,6 +1,9 @@
 package com.redveloper.sportapp.ui.main
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -26,11 +29,20 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_classement,
                 R.id.nav_match,
                 R.id.nav_team,
-                R.id.nav_favorit
+                R.id.nav_favorit,
+                R.id.nav_about
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        navView.menu.findItem(R.id.nav_about).setOnMenuItemClickListener(object: MenuItem.OnMenuItemClickListener{
+            override fun onMenuItemClick(p0: MenuItem?): Boolean {
+                val uri = Uri.parse("sportapp://about")
+                startActivity(Intent(Intent.ACTION_VIEW, uri))
+                return true
+            }
+        })
 
     }
 }
