@@ -8,9 +8,6 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 abstract class LeagueDao : BaseDao<LeagueEntity> {
 
-    @Query("SELECT * FROM leagueentity WHERE id = :id LIMIT 1")
-    abstract fun getSelectedLeague(id: Int = 0): Flow<LeagueEntity>
-
-    @Query("SELECT EXISTS(SELECT * FROM leagueentity)")
-    abstract fun checkItemLeague(): Flow<Boolean>
+    @Query("SELECT * FROM leagueentity")
+    abstract fun getAllLeague(): Flow<List<LeagueEntity>>
 }

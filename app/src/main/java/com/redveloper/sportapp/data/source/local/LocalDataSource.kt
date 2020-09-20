@@ -1,8 +1,8 @@
 package com.redveloper.sportapp.data.source.local
 
-import androidx.lifecycle.LiveData
 import com.redveloper.sportapp.data.source.local.entity.*
 import com.redveloper.sportapp.data.source.local.room.dao.*
+import kotlinx.coroutines.flow.Flow
 
 class LocalDataSource private constructor(
     private val classementDao : ClassementDao,
@@ -22,31 +22,30 @@ class LocalDataSource private constructor(
     }
 
     //country
-    fun getAllCountry() : LiveData<List<CountryEntity>> = countryDao.getAllCountry()
-    fun insertCountry(data : List<CountryEntity>) = countryDao.insert(data)
+    fun getAllCountry() : Flow<List<CountryEntity>> = countryDao.getAllCountry()
+    suspend fun insertCountry(data : List<CountryEntity>) = countryDao.insert(data)
 
     //classement
-    fun getAllClassement() : LiveData<List<ClassementEntity>> = classementDao.getAllClassement()
-    fun insertClassement(data : List<ClassementEntity>) = classementDao.insert(data)
+    fun getAllClassement() : Flow<List<ClassementEntity>> = classementDao.getAllClassement()
+    suspend fun insertClassement(data : List<ClassementEntity>) = classementDao.insert(data)
 
     //team
-    fun getAllTeam() : LiveData<List<TeamEntity>> = teamDao.getAllTeam()
-    fun getDetailTeam(idTeam : String) : LiveData<TeamEntity> = teamDao.getDetailTeam(idTeam)
-    fun insertAllTeam(data : List<TeamEntity>) = teamDao.insert(data)
+    fun getAllTeam() : Flow<List<TeamEntity>> = teamDao.getAllTeam()
+    suspend fun insertAllTeam(data : List<TeamEntity>) = teamDao.insert(data)
     fun setFavoriteTeam(data : TeamEntity, state : Boolean) {
         data.isFavorite = state
         teamDao.update(data)
     }
-    fun getFavoriteTeam() : LiveData<List<TeamEntity>> = teamDao.getFavoriteTeam()
+    fun getFavoriteTeam() : Flow<List<TeamEntity>> = teamDao.getFavoriteTeam()
 
     //league
-    fun getSelectedLeague() : LiveData<LeagueEntity> = leagueDao.getSelectedLeague()
-    fun insertLeague(data : LeagueEntity) = leagueDao.insert(data)
-    fun leagueHasItem() :LiveData<Boolean> = leagueDao.checkItemLeague()
+    fun getAllLeague() : Flow<List<LeagueEntity>> = leagueDao.getAllLeague()
+    suspend fun insertLeague(data : List<LeagueEntity>) = leagueDao.insert(data)
+
 
     //match
-    fun getAllMatch() : LiveData<List<MatchEntity>> = matchDao.getAllMatch()
-    fun insertMatch(data : List<MatchEntity>) = matchDao.insert(data)
+    fun getAllMatch() : Flow<List<MatchEntity>> = matchDao.getAllMatch()
+    suspend fun insertMatch(data : List<MatchEntity>) = matchDao.insert(data)
 
 
 }

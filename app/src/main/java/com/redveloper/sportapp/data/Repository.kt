@@ -1,14 +1,8 @@
 package com.redveloper.sportapp.data
 
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import com.redveloper.sportapp.data.source.local.LocalDataSource
 import com.redveloper.sportapp.data.source.remote.ApiResponse
-import com.redveloper.sportapp.data.source.remote.LoadLeagueCallback
 import com.redveloper.sportapp.data.source.remote.RemoteDataSource
-import com.redveloper.sportapp.data.source.remote.StatusResponse
 import com.redveloper.sportapp.data.source.remote.response.classement.ClassementResponse
 import com.redveloper.sportapp.data.source.remote.response.country.CountryResponse
 import com.redveloper.sportapp.data.source.remote.response.league.LeagueResponse
@@ -20,190 +14,149 @@ import com.redveloper.sportapp.utils.AppExecutors
 import com.redveloper.sportapp.utils.datamapper.DataMapperDomainToEntity
 import com.redveloper.sportapp.utils.datamapper.DataMapperEntityToDomain
 import com.redveloper.sportapp.utils.datamapper.DataMapperResponseToEntity
-import com.redveloper.sportapp.utils.datamapper.DataMapperResponsetoDomain
 import com.redveloper.sportapp.vo.Resource
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 
 class Repository private constructor(
     private val remoteDataSource: RemoteDataSource,
-    private val localDataSouce : LocalDataSource,
+    private val localDataSouce: LocalDataSource,
     private val appExecutors: AppExecutors
-) : RepositoryImpl{
+) : RepositoryImpl {
 
-    companion object{
+    companion object {
         @Volatile
-        private var instance : Repository? = null
+        private var instance: Repository? = null
 
-        fun getInstance(remoteDataSource: RemoteDataSource, localDataSouce: LocalDataSource, appExecutors: AppExecutors) : Repository =
-            instance ?: synchronized(this){
+        fun getInstance(
+            remoteDataSource: RemoteDataSource,
+            localDataSouce: LocalDataSource,
+            appExecutors: AppExecutors
+        ): Repository =
+            instance ?: synchronized(this) {
                 instance ?: Repository(remoteDataSource, localDataSouce, appExecutors)
             }
     }
 
-    override fun getAllCountries(): LiveData<Resource<List<Country>>> {
-        return object : NetworkBoundResource<List<Country>, List<CountryResponse>>(appExecutors){
-            override fun loadFromDB(): LiveData<List<Country>> {
-                return Transformations.map(localDataSouce.getAllCountry()){
-                    DataMapperEntityToDomain.mapCountryEntityToDomain(it)
-                }
+    override fun getAllCountries(): Flow<Resource<List<Country>>> {
+        return object : NetworkBoundResource<List<Country>, List<CountryResponse>>(appExecutors) {
+            override fun loadFromDB(): Flow<List<Country>> {
+                return localDataSouce.getAllCountry()
+                    .map { DataMapperEntityToDomain.mapCountryEntityToDomain(it) }
             }
 
             override fun shouldFetch(data: List<Country>?): Boolean {
                 return data == null || data.isEmpty()
             }
 
-            override fun createCall(): LiveData<ApiResponse<List<CountryResponse>>> {
+            override suspend fun createCall(): Flow<ApiResponse<List<CountryResponse>>> {
                 return remoteDataSource.getAllCountries()
             }
 
-            override fun saveCallResult(data: List<CountryResponse>) {
+            override suspend fun saveCallResult(data: List<CountryResponse>) {
                 val countryList = DataMapperResponseToEntity.mapResponseToCountryEntity(data)
                 localDataSouce.insertCountry(countryList)
             }
-        }.asLiveData()
+        }.asFlow()
     }
 
-    override fun getAllLeague(country: String): LiveData<Resource<List<League>>> {
-        val result = MutableLiveData<Resource<List<League>>>()
-        remoteDataSource.getAllLeague(country, object : LoadLeagueCallback{
-            override fun onResult(data: ApiResponse<List<LeagueResponse>>) {
-                when(data.status){
-                    StatusResponse.SUCCESS -> {
-                        if (!data.body.isNullOrEmpty()){
-                            val item = DataMapperResponsetoDomain.mapLeagueResponseToDomain(data.body)
-                            if (!item.isNullOrEmpty()){
-                                result.value = Resource.Succes(item)
-                            }
-                        }
-                    }
-                    StatusResponse.ERROR -> {
-                        if (data.message != null){
-                            result.value = Resource.Error(message = data.message)
-                        }
-                    }
-                    StatusResponse.EMPTY -> {
-                        result.value = Resource.Loading()
-                    }
-                }
+    override fun getAllLeague(country: String): Flow<Resource<List<League>>> {
+        return object : NetworkBoundResource<List<League>, List<LeagueResponse>>(appExecutors) {
+            override fun loadFromDB(): Flow<List<League>> {
+                return localDataSouce.getAllLeague()
+                    .map { DataMapperEntityToDomain.mapLisLeagueEntityToDomain(it) }
             }
-        })
-        return result
+
+            override fun shouldFetch(data: List<League>?): Boolean {
+                return true
+            }
+
+            override suspend fun createCall(): Flow<ApiResponse<List<LeagueResponse>>> {
+                return remoteDataSource.getAllLeague(country)
+            }
+
+            override suspend fun saveCallResult(data: List<LeagueResponse>) {
+                val leagueEntity = DataMapperResponseToEntity.mapResponseToLeagueEntity(data)
+                localDataSouce.insertLeague(leagueEntity)
+            }
+        }.asFlow()
     }
 
-    override fun getAllTeamInLeague(league: String): LiveData<Resource<List<Team>>> {
-        return object : NetworkBoundResource<List<Team>, List<TeamResponse>>(appExecutors){
-            override fun loadFromDB(): LiveData<List<Team>> {
-                return Transformations.map(localDataSouce.getAllTeam()){
-                    DataMapperEntityToDomain.mapTeamEntityToDomain(it)
-                }
-            }
-
-            override fun shouldFetch(data: List<Team>?): Boolean {
-                return data == null || data.isEmpty()
-            }
-
-            override fun createCall(): LiveData<ApiResponse<List<TeamResponse>>> {
-                return remoteDataSource.getAllTeamInLeague(league)
-            }
-
-            override fun saveCallResult(data: List<TeamResponse>) {
-                val dataList = DataMapperResponseToEntity.mapResponseToTeamEntity(data)
-                localDataSouce.insertAllTeam(dataList)
-            }
-        }.asLiveData()
-    }
-
-    override fun getDetailTeam(idTeam: String): LiveData<Resource<Team>> {
-        return object : NetworkBoundResource<Team, TeamResponse>(appExecutors){
-            override fun loadFromDB(): LiveData<Team> {
-                return Transformations.map(localDataSouce.getDetailTeam(idTeam)){
-                    DataMapperEntityToDomain.mapDetalTeamEntityToDomain(it)
-                }
-            }
-
-            override fun shouldFetch(data: Team?): Boolean {
-                return data == null
-            }
-
-            override fun createCall(): LiveData<ApiResponse<TeamResponse>> {
-                return remoteDataSource.getDetailTeam(idTeam)
-            }
-
-            override fun saveCallResult(data: TeamResponse) {
-                val teamEntity = DataMapperResponseToEntity.mapResponseToDetailTeamEntity(data)
-//                localDataSouce.updateTeam(teamEntity)
-            }
-        }.asLiveData()
-    }
-
-    override fun getAllMatchInLeague(idLeague: String): LiveData<Resource<List<Match>>> {
-        return object : NetworkBoundResource<List<Match>, List<MatchResponse>>(appExecutors){
-            override fun loadFromDB(): LiveData<List<Match>> {
-                return Transformations.map(localDataSouce.getAllMatch()){
-                    DataMapperEntityToDomain.mapMatchEntityToDomain(it)
-                }
+    override fun getAllMatchInLeague(idLeague: String): Flow<Resource<List<Match>>> {
+        return object : NetworkBoundResource<List<Match>, List<MatchResponse>>(appExecutors) {
+            override fun loadFromDB(): Flow<List<Match>> {
+                return localDataSouce.getAllMatch()
+                    .map { DataMapperEntityToDomain.mapMatchEntityToDomain(it) }
             }
 
             override fun shouldFetch(data: List<Match>?): Boolean {
                 return data == null || data.isEmpty()
             }
 
-            override fun createCall(): LiveData<ApiResponse<List<MatchResponse>>> {
+            override suspend fun createCall(): Flow<ApiResponse<List<MatchResponse>>> {
                 return remoteDataSource.getAllMatchInLeague(idLeague)
             }
 
-            override fun saveCallResult(data: List<MatchResponse>) {
-                val dataList = DataMapperResponseToEntity.mapResponseToMatchEntity(data)
-                localDataSouce.insertMatch(dataList)
+            override suspend fun saveCallResult(data: List<MatchResponse>) {
+                val matchEntity = DataMapperResponseToEntity.mapResponseToMatchEntity(data)
+                localDataSouce.insertMatch(matchEntity)
             }
-        }.asLiveData()
+        }.asFlow()
     }
 
     override fun getAllClassementInLeague(
         idLeague: String,
         season: String
-    ): LiveData<Resource<List<Classement>>> {
-        return object : NetworkBoundResource<List<Classement>, List<ClassementResponse>>(appExecutors){
-            override fun loadFromDB(): LiveData<List<Classement>> {
-                return Transformations.map(localDataSouce.getAllClassement()){
-                    DataMapperEntityToDomain.mapClassementEntityToDomain(it)
-                }
+    ): Flow<Resource<List<Classement>>> {
+        return object :
+            NetworkBoundResource<List<Classement>, List<ClassementResponse>>(appExecutors) {
+            override fun loadFromDB(): Flow<List<Classement>> {
+                return localDataSouce.getAllClassement()
+                    .map { DataMapperEntityToDomain.mapClassementEntityToDomain(it) }
             }
 
             override fun shouldFetch(data: List<Classement>?): Boolean {
                 return data == null || data.isEmpty()
             }
 
-            override fun createCall(): LiveData<ApiResponse<List<ClassementResponse>>> {
+            override suspend fun createCall(): Flow<ApiResponse<List<ClassementResponse>>> {
                 return remoteDataSource.getAllClasementInLeague(idLeague, season)
             }
 
-            override fun saveCallResult(data: List<ClassementResponse>) {
-                val dataList = DataMapperResponseToEntity.mapResponseToClassementEntity(data)
-                localDataSouce.insertClassement(dataList)
+            override suspend fun saveCallResult(data: List<ClassementResponse>) {
+                val classementEntity =
+                    DataMapperResponseToEntity.mapResponseToClassementEntity(data)
+                localDataSouce.insertClassement(classementEntity)
             }
-        }.asLiveData()
+        }.asFlow()
     }
 
-    override fun setSelectedLeague(league: League) {
-        val leagueEntity = DataMapperDomainToEntity.mapLeaguDomainToEntity(league)
-        appExecutors.diskIO().execute { localDataSouce.insertLeague(leagueEntity) }
+    override fun getAllTeamInLeague(league: String): Flow<Resource<List<Team>>> {
+        return object : NetworkBoundResource<List<Team>, List<TeamResponse>>(appExecutors) {
+            override fun loadFromDB(): Flow<List<Team>> {
+                return localDataSouce.getAllTeam()
+                    .map { DataMapperEntityToDomain.mapTeamEntityToDomain(it) }
+            }
+
+            override fun shouldFetch(data: List<Team>?): Boolean {
+                return data == null || data.isEmpty()
+            }
+
+            override suspend fun createCall(): Flow<ApiResponse<List<TeamResponse>>> {
+                return remoteDataSource.getAllTeamInLeague(league)
+            }
+
+            override suspend fun saveCallResult(data: List<TeamResponse>) {
+                val teamEntity = DataMapperResponseToEntity.mapResponseToTeamEntity(data)
+                localDataSouce.insertAllTeam(teamEntity)
+            }
+        }.asFlow()
     }
 
-    override fun getSelectedLeague(): LiveData<League> {
-        return Transformations.map(localDataSouce.getSelectedLeague()){
-            DataMapperEntityToDomain.mapLeagueEntityToDomain(it)
-        }
-    }
-
-    override fun checkLeagueHasItem(): LiveData<Boolean> {
-        return localDataSouce.leagueHasItem()
-    }
-
-    override fun getFavoriteTeam(): LiveData<List<Team>> {
-        return Transformations.map(localDataSouce.getFavoriteTeam()){
-            DataMapperEntityToDomain.mapTeamEntityToDomain(it)
-        }
+    override fun getFavoriteTeam(): Flow<List<Team>> {
+        return localDataSouce.getFavoriteTeam()
+            .map { DataMapperEntityToDomain.mapTeamEntityToDomain(it) }
     }
 
     override fun setFavoriteTeam(team: Team, state: Boolean) {

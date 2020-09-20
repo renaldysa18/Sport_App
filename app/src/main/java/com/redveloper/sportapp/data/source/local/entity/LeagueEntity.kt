@@ -15,7 +15,7 @@ data class LeagueEntity(
     @ColumnInfo(name = "gender")
     val gender : String
 ) {
-    @PrimaryKey(autoGenerate = false)
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     var id : Int = 0
 }
