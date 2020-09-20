@@ -13,34 +13,29 @@ import retrofit2.http.Query
 interface ApiService {
 
     @GET("all_countries.php")
-    fun getAllCountries(): Call<ListCountryResponse>
+    suspend fun getAllCountries(): ListCountryResponse
 
     @GET("search_all_leagues.php?")
-    fun getAllLeague(
+    suspend fun getAllLeague(
         @Query("c") country: String,
         @Query("s") type: String = "Soccer"
-    ): Call<ListLeagueResponse>
+    ): ListLeagueResponse
 
     @GET("search_all_teams.php?")
-    fun getAllTeamInLeague(
+    suspend fun getAllTeamInLeague(
         @Query("l") league: String
-    ): Call<ListTeamResponse>
-
-    @GET("lookupteam.php?")
-    fun getDetailTeam(
-        @Query("id") id: String
-    ): Call<TeamResponse>
+    ): ListTeamResponse
 
     @GET("eventsnextleague.php")
-    fun getAllMatchInLeague(
+    suspend fun getAllMatchInLeague(
         @Query("id") id : String
-    ) : Call<ListMatchResponse>
+    ) : ListMatchResponse
 
     @GET("lookuptable.php?")
-    fun getAllClasemmentInLeague(
+    suspend fun getAllClasemmentInLeague(
         @Query("l") idLeague : String,
         @Query("s") season : String
-    ) : Call<ListClassementResponse>
+    ) : ListClassementResponse
 
 
 
