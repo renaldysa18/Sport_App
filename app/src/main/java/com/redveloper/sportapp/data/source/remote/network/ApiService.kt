@@ -12,15 +12,6 @@ import retrofit2.http.Query
 
 interface ApiService {
 
-    @GET("all_countries.php")
-    suspend fun getAllCountries(): ListCountryResponse
-
-    @GET("search_all_leagues.php?")
-    suspend fun getAllLeague(
-        @Query("c") country: String,
-        @Query("s") type: String = "Soccer"
-    ): ListLeagueResponse
-
     @GET("search_all_teams.php?")
     suspend fun getAllTeamInLeague(
         @Query("l") league: String

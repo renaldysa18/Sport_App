@@ -5,36 +5,6 @@ import com.redveloper.sportapp.domain.model.*
 
 object DataMapperEntityToDomain {
 
-    fun mapCountryEntityToDomain(input : List<CountryEntity>) : List<Country>{
-       return input.map {
-            Country(
-                id = it.id,
-                name = it.name
-            )
-        }
-    }
-
-    fun mapLeagueEntityToDomain(input : LeagueEntity) : League {
-        return League(
-            id = input.idLeague,
-            name = input.name,
-            logo = input.logo,
-            gender = input.gender,
-            selected = input.selected
-        )
-    }
-
-    fun mapLisLeagueEntityToDomain(input : List<LeagueEntity>) : List<League>{
-        return input.map {
-            League(
-                id = it.idLeague,
-                name = it.name,
-                logo = it.logo,
-                gender = it.gender,
-                selected = it.selected
-            )
-        }
-    }
 
     fun mapMatchEntityToDomain(input : List<MatchEntity>) : List<Match> {
         return input.map {
@@ -75,20 +45,5 @@ object DataMapperEntityToDomain {
                 total = it.total
             )
         }
-    }
-
-    fun mapDetalTeamEntityToDomain(input : TeamEntity) : Team {
-        return Team(
-            id = input.id,
-            name = input.name,
-            stadiumLocation = input.stadiumLocation,
-            teamBadge = input.teamBadge,
-            stadiumThumb = input.stadiumThumb,
-            nameAlt = input.nameAlt,
-            league = input.league,
-            description = input.description,
-            imageFanArt = input.imageFanart,
-            isFavorite = input.isFavorite
-        )
     }
 }

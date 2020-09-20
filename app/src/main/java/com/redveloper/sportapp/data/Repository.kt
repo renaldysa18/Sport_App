@@ -39,50 +39,7 @@ class Repository private constructor(
             }
     }
 
-    override fun getAllCountries(): Flow<Resource<List<Country>>> {
-        return object : NetworkBoundResource<List<Country>, List<CountryResponse>>(appExecutors) {
-            override fun loadFromDB(): Flow<List<Country>> {
-                return localDataSouce.getAllCountry()
-                    .map { DataMapperEntityToDomain.mapCountryEntityToDomain(it) }
-            }
 
-            override fun shouldFetch(data: List<Country>?): Boolean {
-                return data == null || data.isEmpty()
-            }
-
-            override suspend fun createCall(): Flow<ApiResponse<List<CountryResponse>>> {
-                return remoteDataSource.getAllCountries()
-            }
-
-            override suspend fun saveCallResult(data: List<CountryResponse>) {
-                val countryList = DataMapperResponseToEntity.mapResponseToCountryEntity(data)
-                localDataSouce.insertCountry(countryList)
-            }
-        }.asFlow()
-    }
-
-    override fun getAllLeague(country: String): Flow<Resource<List<League>>> {
-        return object : NetworkBoundResource<List<League>, List<LeagueResponse>>(appExecutors) {
-            override fun loadFromDB(): Flow<List<League>> {
-                return localDataSouce.getAllLeague()
-                    .map { DataMapperEntityToDomain.mapLisLeagueEntityToDomain(it) }
-            }
-
-            override fun shouldFetch(data: List<League>?): Boolean {
-                return true
-            }
-
-            override suspend fun createCall(): Flow<ApiResponse<List<LeagueResponse>>> {
-                return remoteDataSource.getAllLeague(country)
-            }
-
-            override suspend fun saveCallResult(data: List<LeagueResponse>) {
-                localDataSouce.deleteOldLeague()
-                val leagueEntity = DataMapperResponseToEntity.mapResponseToLeagueEntity(data)
-                localDataSouce.insertLeague(leagueEntity)
-            }
-        }.asFlow()
-    }
 
     override fun getAllMatchInLeague(idLeague: String): Flow<Resource<List<Match>>> {
         return object : NetworkBoundResource<List<Match>, List<MatchResponse>>(appExecutors) {
@@ -165,8 +122,5 @@ class Repository private constructor(
         appExecutors.diskIO().execute { localDataSouce.setFavoriteTeam(teamEntity, state) }
     }
 
-    override fun setSelectedLeague(league: League, state: Boolean) {
-        val leagueEntity = DataMapperDomainToEntity.mapLeaguDomainToEntity(league)
-        appExecutors.diskIO().execute { localDataSouce.setSelectedLeague(leagueEntity, state) }
-    }
+
 }

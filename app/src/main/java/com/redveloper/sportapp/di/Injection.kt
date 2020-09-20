@@ -14,7 +14,7 @@ object Injection {
     fun provideRepository(context: Context) : Repository {
         val database = AppDatabase.getInstance(context)
         val localDataSource = LocalDataSource.getInstance(
-            database.ClassementDao(), database.CountryDao(), database.LeagueDao(),
+            database.ClassementDao(),
             database.MatchDao(), database.TeamDao()
         )
         val remoteDataSource = RemoteDataSource.getInstance(ApiConfig.provideApiService())

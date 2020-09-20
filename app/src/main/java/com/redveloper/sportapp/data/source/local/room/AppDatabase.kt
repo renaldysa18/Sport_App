@@ -8,14 +8,12 @@ import com.redveloper.sportapp.data.source.local.entity.*
 import com.redveloper.sportapp.data.source.local.room.dao.*
 
 @Database(
-    entities = [CountryEntity::class, ClassementEntity::class, LeagueEntity::class, MatchEntity::class, TeamEntity::class],
+    entities = [ClassementEntity::class, MatchEntity::class, TeamEntity::class],
     version = 1,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun CountryDao() : CountryDao
     abstract fun ClassementDao() : ClassementDao
-    abstract fun LeagueDao() : LeagueDao
     abstract fun MatchDao() : MatchDao
     abstract fun TeamDao() : TeamDao
 

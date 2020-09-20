@@ -6,8 +6,6 @@ import kotlinx.coroutines.flow.Flow
 
 class LocalDataSource private constructor(
     private val classementDao: ClassementDao,
-    private val countryDao: CountryDao,
-    private val leagueDao: LeagueDao,
     private val matchDao: MatchDao,
     private val teamDao: TeamDao
 ) {
@@ -16,15 +14,11 @@ class LocalDataSource private constructor(
         private var instance: LocalDataSource? = null
 
         fun getInstance(
-            classementDao: ClassementDao, countryDao: CountryDao, leagueDao: LeagueDao,
+            classementDao: ClassementDao,
             matchDao: MatchDao, teamDao: TeamDao
         ): LocalDataSource =
-            instance ?: LocalDataSource(classementDao, countryDao, leagueDao, matchDao, teamDao)
+            instance ?: LocalDataSource(classementDao, matchDao, teamDao)
     }
-
-    //country
-    fun getAllCountry(): Flow<List<CountryEntity>> = countryDao.getAllCountry()
-    suspend fun insertCountry(data: List<CountryEntity>) = countryDao.insert(data)
 
     //classement
     fun getAllClassement(): Flow<List<ClassementEntity>> = classementDao.getAllClassement()
@@ -39,15 +33,6 @@ class LocalDataSource private constructor(
     }
 
     fun getFavoriteTeam(): Flow<List<TeamEntity>> = teamDao.getFavoriteTeam()
-
-    //league
-    fun getAllLeague(): Flow<List<LeagueEntity>> = leagueDao.getAllLeague()
-    suspend fun insertLeague(data: List<LeagueEntity>) = leagueDao.insert(data)
-    suspend fun deleteOldLeague() = leagueDao.deleteOldLeague()
-    fun setSelectedLeague(data: LeagueEntity, state: Boolean) {
-        data.selected = state
-        leagueDao.update(data)
-    }
 
     //match
     fun getAllMatch(): Flow<List<MatchEntity>> = matchDao.getAllMatch()

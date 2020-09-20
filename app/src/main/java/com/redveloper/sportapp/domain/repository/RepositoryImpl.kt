@@ -6,8 +6,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface RepositoryImpl {
 
-    fun getAllCountries() : Flow<Resource<List<Country>>>
-    fun getAllLeague(country: String): Flow<Resource<List<League>>>
     fun getAllTeamInLeague(league: String): Flow<Resource<List<Team>>>
     fun getAllMatchInLeague(idLeague: String): Flow<Resource<List<Match>>>
     fun getAllClassementInLeague(
@@ -18,5 +16,4 @@ interface RepositoryImpl {
     fun getFavoriteTeam() : Flow<List<Team>>
     fun setFavoriteTeam(team : Team, state : Boolean)
 
-    fun setSelectedLeague(league : League, state:Boolean)
 }

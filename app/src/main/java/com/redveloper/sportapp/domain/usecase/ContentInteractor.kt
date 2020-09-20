@@ -6,9 +6,6 @@ import com.redveloper.sportapp.vo.Resource
 import kotlinx.coroutines.flow.Flow
 
 class ContentInteractor (private val repositoryImpl: RepositoryImpl) : ContentUseCase {
-    override fun getAllCountries(): Flow<Resource<List<Country>>> = repositoryImpl.getAllCountries()
-
-    override fun getAllLeague(country: String): Flow<Resource<List<League>>> = repositoryImpl.getAllLeague(country)
 
     override fun getAllTeamInLeague(league: String): Flow<Resource<List<Team>>> = repositoryImpl.getAllTeamInLeague(league)
 
@@ -22,5 +19,4 @@ class ContentInteractor (private val repositoryImpl: RepositoryImpl) : ContentUs
     override fun getFavoriteTeam(): Flow<List<Team>> = repositoryImpl.getFavoriteTeam()
     override fun setFavoriteTeam(team: Team, state: Boolean) = repositoryImpl.setFavoriteTeam(team, state)
 
-    override fun setSelectedLeague(league: League, state: Boolean) = repositoryImpl.setSelectedLeague(league, state)
 }
