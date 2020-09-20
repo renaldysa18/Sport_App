@@ -1,25 +1,25 @@
 package com.redveloper.sportapp.domain.repository
 
-import androidx.lifecycle.LiveData
 import com.redveloper.sportapp.domain.model.*
 import com.redveloper.sportapp.vo.Resource
+import kotlinx.coroutines.flow.Flow
 
 interface RepositoryImpl {
 
-    fun getAllCountries() : LiveData<Resource<List<Country>>>
-    fun getAllLeague(country: String): LiveData<Resource<List<League>>>
-    fun getAllTeamInLeague(league: String): LiveData<Resource<List<Team>>>
-    fun getDetailTeam(idTeam: String): LiveData<Resource<Team>>
-    fun getAllMatchInLeague(idLeague: String): LiveData<Resource<List<Match>>>
+    fun getAllCountries() : Flow<Resource<List<Country>>>
+    fun getAllLeague(country: String): Flow<Resource<List<League>>>
+    fun getAllTeamInLeague(league: String): Flow<Resource<List<Team>>>
+    fun getDetailTeam(idTeam: String): Flow<Resource<Team>>
+    fun getAllMatchInLeague(idLeague: String): Flow<Resource<List<Match>>>
     fun getAllClassementInLeague(
         idLeague: String,
         season: String
-    ): LiveData<Resource<List<Classement>>>
+    ): Flow<Resource<List<Classement>>>
 
     fun setSelectedLeague(league : League)
-    fun getSelectedLeague() : LiveData<League>
-    fun checkLeagueHasItem() : LiveData<Boolean>
+    fun getSelectedLeague() : Flow<League>
+    fun checkLeagueHasItem() : Flow<Boolean>
 
-    fun getFavoriteTeam() : LiveData<List<Team>>
+    fun getFavoriteTeam() : Flow<List<Team>>
     fun setFavoriteTeam(team : Team, state : Boolean)
 }
