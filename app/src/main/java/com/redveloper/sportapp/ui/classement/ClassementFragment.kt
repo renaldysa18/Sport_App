@@ -9,10 +9,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.redveloper.sportapp.R
-import com.redveloper.sportapp.utils.Constanta
-import com.redveloper.sportapp.utils.toast
-import com.redveloper.sportapp.viewmodel.ViewModelFactory
-import com.redveloper.sportapp.vo.Resource
+import com.redveloper.sportapp.core.utils.Constanta
+import com.redveloper.sportapp.core.utils.toast
+import com.redveloper.sportapp.core.viewmodel.ViewModelFactory
+import com.redveloper.sportapp.core.vo.Resource
 import kotlinx.android.synthetic.main.fragment_classement.*
 
 class ClassementFragment : Fragment() {

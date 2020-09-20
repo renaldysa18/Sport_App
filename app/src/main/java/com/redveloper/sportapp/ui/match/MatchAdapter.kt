@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.redveloper.sportapp.R
-import com.redveloper.sportapp.domain.model.Match
+import com.redveloper.sportapp.core.domain.model.Match
 import kotlinx.android.synthetic.main.layout_item_match.view.*
 
 class MatchAdapter : RecyclerView.Adapter<MatchAdapter.ViewHolder>(){

@@ -9,8 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.redveloper.sportapp.R
-import com.redveloper.sportapp.viewmodel.ViewModelFactory
-import com.redveloper.sportapp.vo.Resource
+import com.redveloper.sportapp.core.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_favorit.*
 
 class FavoritFragment : Fragment() {

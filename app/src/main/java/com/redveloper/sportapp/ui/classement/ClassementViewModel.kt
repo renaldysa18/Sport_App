@@ -2,7 +2,7 @@ package com.redveloper.sportapp.ui.classement
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
-import com.redveloper.sportapp.domain.usecase.ContentUseCase
+import com.redveloper.sportapp.core.domain.usecase.ContentUseCase
 
 class ClassementViewModel(private val contentUseCase: ContentUseCase) : ViewModel() {
 

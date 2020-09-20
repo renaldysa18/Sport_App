@@ -5,21 +5,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.redveloper.sportapp.R
-import com.redveloper.sportapp.domain.model.Team
+import com.redveloper.sportapp.core.domain.model.Team
 import com.redveloper.sportapp.ui.detail.team.DetailTeamActivity
-import com.redveloper.sportapp.ui.detail.team.DetailTeamViewModel
-import com.redveloper.sportapp.utils.Constanta
-import com.redveloper.sportapp.utils.DataDummy
-import com.redveloper.sportapp.utils.toast
-import com.redveloper.sportapp.viewmodel.ViewModelFactory
-import com.redveloper.sportapp.vo.Resource
+import com.redveloper.sportapp.core.utils.Constanta
+import com.redveloper.sportapp.core.utils.toast
+import com.redveloper.sportapp.core.viewmodel.ViewModelFactory
+import com.redveloper.sportapp.core.vo.Resource
 import kotlinx.android.synthetic.main.fragment_team.*
 
 class TeamFragment : Fragment(), TeamAdapter.TeamAdapterImpl {

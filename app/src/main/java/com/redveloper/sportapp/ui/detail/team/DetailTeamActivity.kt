@@ -6,8 +6,8 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.redveloper.sportapp.R
-import com.redveloper.sportapp.domain.model.Team
-import com.redveloper.sportapp.viewmodel.ViewModelFactory
+import com.redveloper.sportapp.core.domain.model.Team
+import com.redveloper.sportapp.core.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.activity_detail_team.*
 import kotlinx.android.synthetic.main.content_detail_team.*
 

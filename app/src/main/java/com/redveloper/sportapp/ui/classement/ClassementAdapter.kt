@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.redveloper.sportapp.R
-import com.redveloper.sportapp.domain.model.Classement
+import com.redveloper.sportapp.core.domain.model.Classement
 import kotlinx.android.synthetic.main.layout_item_classement.view.*
 
 class ClassementAdapter : RecyclerView.Adapter<ClassementAdapter.ViewHolder>() {

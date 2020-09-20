@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.redveloper.sportapp.R
-import com.redveloper.sportapp.domain.model.Team
+import com.redveloper.sportapp.core.domain.model.Team
 import kotlinx.android.synthetic.main.layout_item_team.view.*
 
 class FavoritAdapter : RecyclerView.Adapter<FavoritAdapter.ViewHolder>(){
