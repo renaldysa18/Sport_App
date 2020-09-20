@@ -21,4 +21,6 @@ class ContentInteractor (private val repositoryImpl: RepositoryImpl) : ContentUs
 
     override fun getFavoriteTeam(): Flow<List<Team>> = repositoryImpl.getFavoriteTeam()
     override fun setFavoriteTeam(team: Team, state: Boolean) = repositoryImpl.setFavoriteTeam(team, state)
+
+    override fun setSelectedLeague(league: League, state: Boolean) = repositoryImpl.setSelectedLeague(league, state)
 }

@@ -17,4 +17,6 @@ interface ContentUseCase {
 
     fun getFavoriteTeam(): Flow<List<Team>>
     fun setFavoriteTeam(team: Team, state: Boolean)
+
+    fun setSelectedLeague(league: League, state: Boolean)
 }

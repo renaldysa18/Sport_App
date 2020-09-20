@@ -41,6 +41,7 @@ class LeagueAdapter : RecyclerView.Adapter<LeagueAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bindData(data: League, listener : LeagueAdapterImpl) {
+            val selected = !data.selected
             with(itemView) {
                 Glide.with(context)
                     .load(data.logo)
@@ -49,13 +50,13 @@ class LeagueAdapter : RecyclerView.Adapter<LeagueAdapter.ViewHolder>() {
                 tv_gender_item_league.text = data.gender
 
                 setOnClickListener {
-                    listener.onLeagueSelected(data)
+                    listener.onLeagueSelected(data, selected)
                 }
             }
         }
     }
 
     interface LeagueAdapterImpl {
-        fun onLeagueSelected(data: League)
+        fun onLeagueSelected(data: League, state: Boolean)
     }
 }

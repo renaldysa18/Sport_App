@@ -164,4 +164,9 @@ class Repository private constructor(
         val teamEntity = DataMapperDomainToEntity.mapTeamDomainToEntity(team)
         appExecutors.diskIO().execute { localDataSouce.setFavoriteTeam(teamEntity, state) }
     }
+
+    override fun setSelectedLeague(league: League, state: Boolean) {
+        val leagueEntity = DataMapperDomainToEntity.mapLeaguDomainToEntity(league)
+        appExecutors.diskIO().execute { localDataSouce.setSelectedLeague(leagueEntity, state) }
+    }
 }

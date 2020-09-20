@@ -19,7 +19,8 @@ object DataMapperEntityToDomain {
             id = input.idLeague,
             name = input.name,
             logo = input.logo,
-            gender = input.gender
+            gender = input.gender,
+            selected = input.selected
         )
     }
 
@@ -29,7 +30,8 @@ object DataMapperEntityToDomain {
                 id = it.idLeague,
                 name = it.name,
                 logo = it.logo,
-                gender = it.gender
+                gender = it.gender,
+                selected = it.selected
             )
         }
     }

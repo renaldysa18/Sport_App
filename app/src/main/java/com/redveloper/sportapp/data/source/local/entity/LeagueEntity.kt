@@ -13,7 +13,9 @@ data class LeagueEntity(
     @ColumnInfo(name = "logo")
     val logo : String?,
     @ColumnInfo(name = "gender")
-    val gender : String
+    val gender : String,
+    @ColumnInfo(name = "selected")
+    var selected : Boolean = false
 ) {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")

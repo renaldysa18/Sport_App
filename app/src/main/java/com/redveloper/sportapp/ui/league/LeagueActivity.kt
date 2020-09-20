@@ -2,6 +2,7 @@ package com.redveloper.sportapp.ui.league
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -44,7 +45,9 @@ class LeagueActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener, 
         spinner_country_league.onItemSelectedListener = this
     }
 
-    override fun onLeagueSelected(data: League) {
+    override fun onLeagueSelected(data: League, state: Boolean) {
+        viewModel.setSelectedLeague(data,state)
+        Log.i("selectedLeague", state.toString())
         toMain()
     }
 

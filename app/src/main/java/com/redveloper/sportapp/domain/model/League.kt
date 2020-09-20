@@ -4,5 +4,6 @@ data class League(
     val id : String,
     val name : String,
     val logo : String?,
-    val gender : String
+    val gender : String,
+    val selected : Boolean
 )
