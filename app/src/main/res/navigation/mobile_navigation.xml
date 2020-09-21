@@ -21,7 +21,8 @@
         tools:layout="@layout/fragment_team" />
     <fragment
         android:id="@+id/nav_favorit"
-        android:name="com.redveloper.sportapp.ui.favorit.FavoritFragment"
+        android:name="com.redveloper.sportapp.favorit.FavoritFragment"
+        app:moduleName="favorit"
         android:label="Favorit"
-        tools:layout="@layout/fragment_favorit" />
+        tools:layout="@layout/fragment_favorit"/>
 </navigation>

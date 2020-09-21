@@ -1,13 +1,13 @@
-package com.redveloper.sportapp.ui.favorit
+package com.redveloper.sportapp.favorit
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.redveloper.sportapp.R
 import com.redveloper.sportapp.core.domain.model.Team
-import kotlinx.android.synthetic.main.layout_item_team.view.*
+import kotlinx.android.synthetic.main.layout_item_favorit.view.*
+
 
 class FavoritAdapter : RecyclerView.Adapter<FavoritAdapter.ViewHolder>(){
     private val items : ArrayList<Team> = ArrayList()
@@ -19,7 +19,7 @@ class FavoritAdapter : RecyclerView.Adapter<FavoritAdapter.ViewHolder>(){
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.layout_item_team, parent, false))
+        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.layout_item_favorit, parent, false))
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

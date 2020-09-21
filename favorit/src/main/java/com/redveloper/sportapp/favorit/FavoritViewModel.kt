@@ -1,4 +1,4 @@
-package com.redveloper.sportapp.ui.favorit
+package com.redveloper.sportapp.favorit
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData

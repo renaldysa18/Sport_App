@@ -4,7 +4,6 @@ import com.redveloper.sportapp.core.domain.usecase.ContentInteractor
 import com.redveloper.sportapp.core.domain.usecase.ContentUseCase
 import com.redveloper.sportapp.ui.classement.ClassementViewModel
 import com.redveloper.sportapp.ui.detail.team.DetailTeamViewModel
-import com.redveloper.sportapp.ui.favorit.FavoritViewModel
 import com.redveloper.sportapp.ui.match.MatchViewModel
 import com.redveloper.sportapp.ui.team.TeamViewModel
 import org.koin.android.viewmodel.dsl.viewModel
@@ -18,6 +17,5 @@ val viewModelModule = module {
     viewModel { ClassementViewModel(get()) }
     viewModel { TeamViewModel(get()) }
     viewModel { MatchViewModel(get()) }
-    viewModel { FavoritViewModel(get()) }
     viewModel { DetailTeamViewModel(get()) }
 }
