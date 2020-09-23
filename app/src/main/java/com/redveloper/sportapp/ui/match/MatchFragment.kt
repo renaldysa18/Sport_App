@@ -14,11 +14,11 @@ import com.redveloper.sportapp.core.utils.Constanta
 import com.redveloper.sportapp.core.utils.toast
 import com.redveloper.sportapp.core.vo.Resource
 import kotlinx.android.synthetic.main.fragment_match.*
-import org.koin.android.ext.android.inject
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class MatchFragment : Fragment() {
 
-    val viewModel: MatchViewModel by inject()
+    val mathViewModel: MatchViewModel by viewModel()
     private lateinit var matchAdapter: MatchAdapter
     private lateinit var progressDialog : ProgressDialog
 
@@ -44,7 +44,7 @@ class MatchFragment : Fragment() {
     }
 
     private fun getDataMatch(idLeague : String) {
-        viewModel.match(idLeague).observe(this, Observer {data ->
+        mathViewModel.match(idLeague).observe(viewLifecycleOwner, Observer {data ->
             if (data != null){
                 when(data){
                     is Resource.Loading -> {

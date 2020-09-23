@@ -14,9 +14,10 @@ class FavoritAdapter : RecyclerView.Adapter<FavoritAdapter.ViewHolder>(){
     private lateinit var listener : FavoritAdapterImpl
 
     fun setData(datas : List<Team>?){
-        if (datas.isNullOrEmpty()) return
+        if (datas == null) return
         this.items.clear()
         this.items.addAll(datas)
+        notifyDataSetChanged()
     }
 
     fun setListener(listener: FavoritAdapterImpl?){

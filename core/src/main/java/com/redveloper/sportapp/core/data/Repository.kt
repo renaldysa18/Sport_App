@@ -1,5 +1,6 @@
 package com.redveloper.sportapp.core.data
 
+import android.util.Log
 import com.redveloper.sportapp.core.data.source.local.LocalDataSource
 import com.redveloper.sportapp.core.data.source.remote.ApiResponse
 import com.redveloper.sportapp.core.data.source.remote.RemoteDataSource
@@ -32,7 +33,7 @@ class Repository (
             }
 
             override fun shouldFetch(data: List<Match>?): Boolean {
-                return data == null || data.isEmpty()
+                return true
             }
 
             override suspend fun createCall(): Flow<ApiResponse<List<MatchResponse>>> {
@@ -58,7 +59,7 @@ class Repository (
             }
 
             override fun shouldFetch(data: List<Classement>?): Boolean {
-                return data == null || data.isEmpty()
+                return true
             }
 
             override suspend fun createCall(): Flow<ApiResponse<List<ClassementResponse>>> {

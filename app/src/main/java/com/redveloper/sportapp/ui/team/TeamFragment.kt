@@ -16,11 +16,11 @@ import com.redveloper.sportapp.core.utils.Constanta
 import com.redveloper.sportapp.core.utils.toast
 import com.redveloper.sportapp.core.vo.Resource
 import kotlinx.android.synthetic.main.fragment_team.*
-import org.koin.android.ext.android.inject
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class TeamFragment : Fragment(), TeamAdapter.TeamAdapterImpl {
 
-    val viewModel: TeamViewModel by inject()
+    val teamViewModel: TeamViewModel by viewModel()
     private lateinit var teamAdapter: TeamAdapter
     private lateinit var progressDialog: ProgressDialog
 
@@ -34,16 +34,19 @@ class TeamFragment : Fragment(), TeamAdapter.TeamAdapterImpl {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        teamAdapter = TeamAdapter()
-        teamAdapter.setListener(this)
-        progressDialog = ProgressDialog(requireActivity())
+        if (activity != null){
+            teamAdapter = TeamAdapter()
+            teamAdapter.setListener(this)
+            progressDialog = ProgressDialog(requireActivity())
 
-        with(rv_team){
-            layoutManager = LinearLayoutManager(requireActivity())
-            adapter = teamAdapter
+            with(rv_team){
+                layoutManager = LinearLayoutManager(requireActivity())
+                setHasFixedSize(true)
+                adapter = teamAdapter
+            }
+
+            getDataTeam(Constanta.NAME_LEAGUE)
         }
-
-        getDataTeam(Constanta.NAME_LEAGUE)
     }
 
     override fun onTeamClicked(data: Team) {
@@ -53,7 +56,7 @@ class TeamFragment : Fragment(), TeamAdapter.TeamAdapterImpl {
     }
 
     private fun getDataTeam(nameLeague : String){
-        viewModel.getAllTeam(nameLeague).observe(this, Observer { data ->
+        teamViewModel.getAllTeam(nameLeague).observe(viewLifecycleOwner, Observer { data ->
             if (data != null){
                 when(data){
                     is Resource.Loading -> {

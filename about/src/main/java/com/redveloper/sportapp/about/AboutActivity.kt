@@ -11,12 +11,12 @@ import com.redveloper.sportapp.about.di.aboutModule
 import com.redveloper.sportapp.core.domain.model.Team
 import com.redveloper.sportapp.ui.detail.team.DetailTeamActivity
 import kotlinx.android.synthetic.main.activity_about.*
-import org.koin.android.ext.android.inject
+import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.context.loadKoinModules
 
 class AboutActivity : AppCompatActivity(), AboutAdapter.AboutAdapterImpl{
 
-    val viewModel : AboutViewModel by inject()
+    val aboutViewModel : AboutViewModel by viewModel()
     private lateinit var aboutAdapter: AboutAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,20 +28,15 @@ class AboutActivity : AppCompatActivity(), AboutAdapter.AboutAdapterImpl{
 
         loadKoinModules(aboutModule)
 
-        with(rv_about_favorit_team){
+        with(rv_about_favorit_team) {
             layoutManager = LinearLayoutManager(this@AboutActivity, RecyclerView.HORIZONTAL, false)
             adapter = aboutAdapter
         }
 
-        viewModel.favorit.observe(this, Observer { data ->
-            if (data != null){
-                val count = data.size
-                tv_count_favorit.text = "Kamu memfavoritkan $count team"
-                aboutAdapter.setItems(data)
-                aboutAdapter.notifyDataSetChanged()
-            } else {
-                tv_count_favorit.text = "Kamu belum memfavoritkan team"
-            }
+        aboutViewModel.favorit.observe(this, Observer { data ->
+            aboutAdapter.setItems(data)
+            tv_count_favorit.text =
+                if (data != null) "Kamu memfavoritkan ${data.size} team" else "Kamu belum memfavoritkan team"
         })
     }
 
@@ -49,5 +44,9 @@ class AboutActivity : AppCompatActivity(), AboutAdapter.AboutAdapterImpl{
         val intent = Intent(this, DetailTeamActivity::class.java)
         intent.putExtra(DetailTeamActivity.EXTRAS, data)
         startActivity(intent)
+    }
+
+    override fun onRestart() {
+        super.onRestart()
     }
 }

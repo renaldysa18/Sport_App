@@ -13,11 +13,11 @@ import com.redveloper.sportapp.core.utils.Constanta
 import com.redveloper.sportapp.core.utils.toast
 import com.redveloper.sportapp.core.vo.Resource
 import kotlinx.android.synthetic.main.fragment_classement.*
-import org.koin.android.ext.android.inject
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class ClassementFragment : Fragment() {
 
-    val viewModel: ClassementViewModel by inject()
+    val classementViewModel: ClassementViewModel by viewModel()
     private lateinit var classementAdapter: ClassementAdapter
     private lateinit var progressDialog : ProgressDialog
 
@@ -43,7 +43,7 @@ class ClassementFragment : Fragment() {
     }
 
     private fun getDataClassement(idLeague: String) {
-        viewModel.classement(idLeague).observe(this, Observer { data ->
+        classementViewModel.classement(idLeague).observe(viewLifecycleOwner, Observer { data ->
             if (data != null){
                 when(data){
                     is Resource.Loading -> {

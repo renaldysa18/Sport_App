@@ -8,7 +8,7 @@ import com.redveloper.sportapp.R
 import com.redveloper.sportapp.core.domain.model.Team
 import kotlinx.android.synthetic.main.activity_detail_team.*
 import kotlinx.android.synthetic.main.content_detail_team.*
-import org.koin.android.ext.android.inject
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class DetailTeamActivity : AppCompatActivity() {
 
@@ -16,7 +16,7 @@ class DetailTeamActivity : AppCompatActivity() {
         const val EXTRAS = "EXTRAS"
     }
 
-    val viewModel: DetailTeamViewModel by inject()
+    val detailViewModel: DetailTeamViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +49,7 @@ class DetailTeamActivity : AppCompatActivity() {
         setStatusFavorite(statusFavorite)
         fab_detail_team.setOnClickListener{
             statusFavorite = !statusFavorite
-            viewModel.setFavoriteTeam(data, statusFavorite)
+            detailViewModel.setFavoriteTeam(data, statusFavorite)
             setStatusFavorite(statusFavorite)
         }
     }
@@ -60,5 +60,10 @@ class DetailTeamActivity : AppCompatActivity() {
         } else {
             fab_detail_team.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_not_favorite))
         }
+    }
+
+    override fun onBackPressed() {
+        finish()
+        super.onBackPressed()
     }
 }

@@ -1,5 +1,6 @@
 package com.redveloper.sportapp.core.data.source.local
 
+import android.util.Log
 import com.redveloper.sportapp.core.data.source.local.entity.*
 import com.redveloper.sportapp.core.data.source.local.room.dao.*
 import kotlinx.coroutines.flow.Flow
@@ -19,6 +20,7 @@ class LocalDataSource(
     suspend fun insertAllTeam(data: List<TeamEntity>) = teamDao.insert(data)
     fun setFavoriteTeam(data: TeamEntity, state: Boolean) {
         data.isFavorite = state
+        Log.i("dataUpdate", data.toString())
         teamDao.update(data)
     }
 

@@ -13,9 +13,10 @@ class AboutAdapter : RecyclerView.Adapter<AboutAdapter.ViewHolder>(){
     private lateinit var listener : AboutAdapterImpl
 
     fun setItems(datas : List<Team>?){
-        if (datas.isNullOrEmpty()) return
+        if (datas == null) return
         items.clear()
         items.addAll(datas)
+        notifyDataSetChanged()
     }
 
     fun setListener(listener : AboutAdapterImpl?){

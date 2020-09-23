@@ -12,12 +12,12 @@ import com.redveloper.sportapp.core.domain.model.Team
 import com.redveloper.sportapp.favorit.di.favoritModule
 import com.redveloper.sportapp.ui.detail.team.DetailTeamActivity
 import kotlinx.android.synthetic.main.fragment_favorit.*
-import org.koin.android.ext.android.inject
+import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.context.loadKoinModules
 
 class FavoritFragment : Fragment(), FavoritAdapter.FavoritAdapterImpl {
 
-    val viewModel : FavoritViewModel by inject()
+    val favoritViewModel : FavoritViewModel by viewModel()
     private lateinit var favoritAdapter: FavoritAdapter
 
     override fun onCreateView(
@@ -28,27 +28,25 @@ class FavoritFragment : Fragment(), FavoritAdapter.FavoritAdapterImpl {
         return inflater.inflate(R.layout.fragment_favorit, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        favoritAdapter = FavoritAdapter()
-        favoritAdapter.setListener(this)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        if (activity != null){
+            favoritAdapter = FavoritAdapter()
+            favoritAdapter.setListener(this)
 
-        loadKoinModules(favoritModule)
+            loadKoinModules(favoritModule)
 
-        with(rv_favorite){
-            layoutManager = LinearLayoutManager(requireActivity())
-            adapter = favoritAdapter
-        }
-
-        viewModel.team.observe(this, Observer { data ->
-            if (!data.isNullOrEmpty()){
-                tv_empty_data.visibility = View.GONE
-                favoritAdapter.setData(data)
-                favoritAdapter.notifyDataSetChanged()
-            } else {
-                tv_empty_data.visibility = View.VISIBLE
+            with(rv_favorite){
+                layoutManager = LinearLayoutManager(requireActivity())
+                setHasFixedSize(true)
+                adapter = favoritAdapter
             }
-        })
+
+            favoritViewModel.team.observe(viewLifecycleOwner, Observer { data ->
+                favoritAdapter.setData(data)
+                tv_empty_data.visibility = if (data.isNotEmpty()) View.GONE else View.VISIBLE
+            })
+        }
     }
 
     override fun onTeamClick(data: Team) {
