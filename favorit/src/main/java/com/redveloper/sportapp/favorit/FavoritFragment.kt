@@ -38,8 +38,11 @@ class FavoritFragment : Fragment() {
 
         viewModel.team.observe(this, Observer { data ->
             if (!data.isNullOrEmpty()){
+                tv_empty_data.visibility = View.GONE
                 favoritAdapter.setData(data)
                 favoritAdapter.notifyDataSetChanged()
+            } else {
+                tv_empty_data.visibility = View.VISIBLE
             }
         })
     }
