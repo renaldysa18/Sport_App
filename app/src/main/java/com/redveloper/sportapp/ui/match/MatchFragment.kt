@@ -1,5 +1,6 @@
 package com.redveloper.sportapp.ui.match
 
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +20,7 @@ class MatchFragment : Fragment() {
 
     val viewModel: MatchViewModel by inject()
     private lateinit var matchAdapter: MatchAdapter
+    private lateinit var progressDialog : ProgressDialog
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -31,6 +33,7 @@ class MatchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         matchAdapter = MatchAdapter()
+        progressDialog = ProgressDialog(requireActivity())
 
         with(rv_match){
             layoutManager = LinearLayoutManager(requireActivity())
@@ -44,11 +47,16 @@ class MatchFragment : Fragment() {
         viewModel.match(idLeague).observe(this, Observer {data ->
             if (data != null){
                 when(data){
-                    is Resource.Loading -> {}
+                    is Resource.Loading -> {
+                        progressDialog.setMessage(resources.getString(R.string.loading))
+                        progressDialog.show()
+                    }
                     is Resource.Success -> {
                         showDataMatch(data.data)
+                        progressDialog.dismiss()
                     }
                     is Resource.Error -> {
+                        progressDialog.dismiss()
                         context?.toast(data.message.toString())
                     }
                 }
