@@ -8,11 +8,27 @@
     android:layout_width="match_parent"
     android:layout_height="150dp">
 
-    <ImageView
-        android:id="@+id/img_item_match"
-        android:scaleType="centerCrop"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:ignore="ContentDescription" />
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/img_item_match"
+            android:scaleType="centerCrop"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/tv_title_item_match"
+            android:textColor="@color/colorBlack"
+            android:text="@string/title"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </androidx.cardview.widget.CardView>

@@ -36,7 +36,9 @@ class MatchAdapter : RecyclerView.Adapter<MatchAdapter.ViewHolder>(){
             with(itemView){
                 Glide.with(context)
                     .load(data.image)
+                    .placeholder(R.drawable.ic_launcher_background)
                     .into(img_item_match)
+                tv_title_item_match.text = data.name
             }
         }
     }
