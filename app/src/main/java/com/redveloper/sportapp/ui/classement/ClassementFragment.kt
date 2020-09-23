@@ -1,5 +1,6 @@
 package com.redveloper.sportapp.ui.classement
 
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +19,7 @@ class ClassementFragment : Fragment() {
 
     val viewModel: ClassementViewModel by inject()
     private lateinit var classementAdapter: ClassementAdapter
+    private lateinit var progressDialog : ProgressDialog
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -30,6 +32,7 @@ class ClassementFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         classementAdapter = ClassementAdapter()
+        progressDialog = ProgressDialog(requireActivity())
 
         with(rv_classement){
             layoutManager = LinearLayoutManager(requireActivity())
@@ -43,12 +46,17 @@ class ClassementFragment : Fragment() {
         viewModel.classement(idLeague).observe(this, Observer { data ->
             if (data != null){
                 when(data){
-                    is Resource.Loading -> {}
+                    is Resource.Loading -> {
+                        progressDialog.setMessage(resources.getString(R.string.loading))
+                        progressDialog.show()
+                    }
                     is Resource.Success -> {
                         classementAdapter.setDataItem(data.data)
                         classementAdapter.notifyDataSetChanged()
+                        progressDialog.dismiss()
                     }
                     is Resource.Error -> {
+                        progressDialog.dismiss()
                         context?.toast(data.message.toString())
                     }
                 }
