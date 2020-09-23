@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.layout_item_favorit.view.*
 
 class FavoritAdapter : RecyclerView.Adapter<FavoritAdapter.ViewHolder>(){
     private val items : ArrayList<Team> = ArrayList()
+    private lateinit var listener : FavoritAdapterImpl
 
     fun setData(datas : List<Team>?){
         if (datas.isNullOrEmpty()) return
@@ -18,12 +19,17 @@ class FavoritAdapter : RecyclerView.Adapter<FavoritAdapter.ViewHolder>(){
         this.items.addAll(datas)
     }
 
+    fun setListener(listener: FavoritAdapterImpl?){
+        if (listener == null) return
+        this.listener = listener
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.layout_item_favorit, parent, false))
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindData(items.get(position))
+        holder.bindData(items.get(position), listener)
     }
 
     override fun getItemCount(): Int {
@@ -31,7 +37,7 @@ class FavoritAdapter : RecyclerView.Adapter<FavoritAdapter.ViewHolder>(){
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        fun bindData(data : Team){
+        fun bindData(data : Team, listener : FavoritAdapterImpl){
             with(itemView) {
                 Glide.with(context)
                     .load(data.stadiumThumb)
@@ -42,7 +48,15 @@ class FavoritAdapter : RecyclerView.Adapter<FavoritAdapter.ViewHolder>(){
                 tv_title_item_team.setText(data.name)
                 tv_location_item_team.setText(data.stadiumLocation)
                 tv_stadium_item_team.setText(data.stadiumLocation)
+
+                setOnClickListener {
+                    listener.onTeamClick(data)
+                }
             }
         }
+    }
+
+    interface FavoritAdapterImpl {
+        fun onTeamClick(data: Team)
     }
 }
