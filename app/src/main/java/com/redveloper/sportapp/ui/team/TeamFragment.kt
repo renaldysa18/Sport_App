@@ -1,5 +1,6 @@
 package com.redveloper.sportapp.ui.team
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -21,6 +22,7 @@ class TeamFragment : Fragment(), TeamAdapter.TeamAdapterImpl {
 
     val viewModel: TeamViewModel by inject()
     private lateinit var teamAdapter: TeamAdapter
+    private lateinit var progressDialog: ProgressDialog
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -34,6 +36,7 @@ class TeamFragment : Fragment(), TeamAdapter.TeamAdapterImpl {
         super.onViewCreated(view, savedInstanceState)
         teamAdapter = TeamAdapter()
         teamAdapter.setListener(this)
+        progressDialog = ProgressDialog(requireActivity())
 
         with(rv_team){
             layoutManager = LinearLayoutManager(requireActivity())
@@ -53,11 +56,16 @@ class TeamFragment : Fragment(), TeamAdapter.TeamAdapterImpl {
         viewModel.getAllTeam(nameLeague).observe(this, Observer { data ->
             if (data != null){
                 when(data){
-                    is Resource.Loading -> {}
+                    is Resource.Loading -> {
+                        progressDialog.setMessage(resources.getString(R.string.loading))
+                        progressDialog.show()
+                    }
                     is Resource.Success -> {
                         showDataTeam(data.data)
+                        progressDialog.dismiss()
                     }
                     is Resource.Error -> {
+                        progressDialog.dismiss()
                         context?.toast(data.message.toString())
                     }
                 }

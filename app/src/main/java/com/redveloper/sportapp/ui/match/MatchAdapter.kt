@@ -9,7 +9,7 @@ import com.redveloper.sportapp.R
 import com.redveloper.sportapp.core.domain.model.Match
 import kotlinx.android.synthetic.main.layout_item_match.view.*
 
-class MatchAdapter : RecyclerView.Adapter<MatchAdapter.ViewHolder>(){
+class MatchAdapter : RecyclerView.Adapter<MatchAdapter.ViewHolder>()          {
 
     private val items : ArrayList<Match> = ArrayList()
 
