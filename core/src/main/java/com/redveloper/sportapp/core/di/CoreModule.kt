@@ -9,6 +9,8 @@ import com.redveloper.sportapp.core.data.source.remote.network.ApiService
 import com.redveloper.sportapp.core.domain.repository.RepositoryImpl
 import com.redveloper.sportapp.core.utils.AppExecutors
 import com.redveloper.sportapp.core.utils.Constanta
+import net.sqlcipher.database.SQLiteDatabase
+import net.sqlcipher.database.SupportFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
@@ -22,10 +24,14 @@ val databaseModule = module {
     factory { get<AppDatabase>().MatchDao() }
     factory { get<AppDatabase>().TeamDao() }
     single {
+        val passphrese: ByteArray = SQLiteDatabase.getBytes("renaldy".toCharArray())
+        val factory = SupportFactory(passphrese)
         Room.databaseBuilder(
             androidContext(),
             AppDatabase::class.java, "content.db"
-        ).fallbackToDestructiveMigration().build()
+        ).fallbackToDestructiveMigration()
+            .openHelperFactory(factory)
+            .build()
     }
 }
 
